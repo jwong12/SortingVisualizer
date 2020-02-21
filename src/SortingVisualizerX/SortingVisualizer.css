@@ -1,0 +1,13 @@
+.canvas {
+    border: solid 1px rgb(105, 105, 105, 0.4);
+    background-color: rgb(231, 231, 231);
+    display: flex;
+    align-items: center;    
+}
+
+.canvas-content {
+    margin: auto;
+    padding-top: 15px;
+    width: 750px;
+    min-height: 430px;
+}

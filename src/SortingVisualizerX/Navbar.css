@@ -1,0 +1,12 @@
+.nav-bar {
+    background-color: #3a3a3a;
+    border: solid 1px rgb(105, 105, 105, 0.4);
+    min-height: 7vh;
+    min-width:1550px;
+}
+
+h2 {
+    margin:0;
+    color: rgb(93, 160, 248);
+    line-height: 40px;
+}
