@@ -1,5 +1,5 @@
 .canvas {
-    border: solid 1px rgb(105, 105, 105, 0.4);
+    border: solid 1px rgb(105, 105, 105, 1);
     background-color: rgb(231, 231, 231);
     display: flex;
     align-items: center;    
