@@ -8,9 +8,25 @@ const PRIMARY_COLOR = 'grey';
 const SECONDARY_COLOR = 'red';
 
 class ArrayGraph extends Component {
+    constructor(props) {
+        super(props);
+        this.containerRef = React.createRef();
+    }
+
+    componentDidUpdate() {
+        console.log('did update');
+
+        if(this.props.startSort === true) {
+            console.log('startSort');
+            this.bubbleSort();
+        }
+    }
+
     bubbleSort = () => {
         const animations = sortingAlgorithms.bubbleSort(this.props.array);
-        const arrayBars = document.getElementsByClassName('array-bar');
+        console.log(animations.length)
+        const node = this.containerRef.current;
+        const arrayBars = node.getElementsByClassName('array-bar');
         let n = 249, barsIndex = 249;
 
         for (let i = 0; i < animations.length; i++) {
@@ -69,7 +85,7 @@ class ArrayGraph extends Component {
 
     render() {
         return (
-            <div className="array-container">
+            <div className="array-container" ref={this.containerRef}>
                 {this.props.array.map((value,i) => {
                     return (
                     <div

@@ -7,6 +7,11 @@ const mapDispatchToProps = (dispatch) => {
       dispatch({
         type: 'ARRAY_GRAPH_CREATE_ARRAY',
       });
+    },
+    startSorting: () => {
+      dispatch({
+        type: 'ARRAY_GRAPH_START_SORTING',
+      })
     }
   };
 };
