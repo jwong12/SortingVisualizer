@@ -3,31 +3,43 @@ import * as sortingAlgorithms from '../sortingAlgorithms/sortingAlgorithms';
 import './ArrayGraph.css';
 
 const NUMBER_OF_ARRAY_BARS = 250;
-const ANIMATION_SPEED_MS = 1/6;
+const ANIMATION_SPEED_MS = 3;
 const PRIMARY_COLOR = 'grey';
 const SECONDARY_COLOR = 'red';
 
 class ArrayGraph extends Component {
     constructor(props) {
         super(props);
-        this.containerRef = React.createRef();
+        this.componentRef = React.createRef();
+        this.componentRef.current = randomIntFromInterval(0, 1000000);
+        this.state = {
+            [this.componentRef.current]: []
+        };
     }
 
-    componentDidUpdate() {
-        console.log('did update');
+    componentDidMount() {
+        this.setState({            
+            [this.componentRef.current]: [...this.props.array]
+        });
+    }
+
+    componentDidUpdate(prevProps) {
+        if(prevProps !== this.props && !this.props.startSort) {
+            this.setState({            
+                [this.componentRef.current]: [...this.props.array]
+            });   
+        }
 
         if(this.props.startSort === true) {
-            console.log('startSort');
-            this.bubbleSort();
+            this.bubbleSort(this.state[this.componentRef.current]);
         }
     }
 
-    bubbleSort = () => {
-        const animations = sortingAlgorithms.bubbleSort(this.props.array);
-        console.log(animations.length)
-        const node = this.containerRef.current;
+    bubbleSort = (thisArray) => {
+        const animations = sortingAlgorithms.bubbleSort(thisArray);
+        const node = this.componentRef.current;
         const arrayBars = node.getElementsByClassName('array-bar');
-        let n = 249, barsIndex = 249;
+        let n = 69, barsIndex = 69; // 249
 
         for (let i = 0; i < animations.length; i++) {
             const isColorChange = i % 3 !== 1;
@@ -55,18 +67,18 @@ class ArrayGraph extends Component {
                         setTimeout(() => {                            
                             const barStyle = arrayBars[barsIndex--].style;
                             barStyle.backgroundColor = 'green';
-                        }, 0);     
+                        }, 5);     
 
                         if(--n === 0) {
                             setTimeout(() => {
                                 const barStyle = arrayBars[0].style;
                                 barStyle.backgroundColor = 'green';
-                            }, 0);     
+                            }, 5);   
                         }
                     }                
                 }, i * ANIMATION_SPEED_MS);                
             }
-        }                    
+        }
     }
 
     testSortingAlgorithms() {
@@ -85,8 +97,8 @@ class ArrayGraph extends Component {
 
     render() {
         return (
-            <div className="array-container" ref={this.containerRef}>
-                {this.props.array.map((value,i) => {
+            <div className="array-container" ref={this.componentRef}>
+                {this.state[this.componentRef.current].map((value,i) => {
                     return (
                     <div
                         className="array-bar"

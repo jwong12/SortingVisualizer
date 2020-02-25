@@ -1,13 +1,13 @@
 .canvas {
-    border: solid 1px rgb(105, 105, 105, 1);
+    border: solid 1px rgb(105, 105, 105, 0.8);
     background-color: rgb(231, 231, 231);
     display: flex;
     align-items: center;    
+    margin: 1px;
 }
 
 .canvas-content {
     margin: auto;
     padding-top: 15px;
     width: 750px;
-    min-height: 430px;
 }
