@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ArrayGraph from './ArrayGraph';
+import ArrayGraphContainer from '../containers/ArrayGraphContainer';
 import AlgorithmListBar from './AlgorithmListBar';
 import './SortingVisualizer.css';
 
@@ -8,7 +8,7 @@ class SortingVisualizer extends Component {
         return (
             <div className="canvas">
                 <div className="canvas-content">
-                    <ArrayGraph />
+                    <ArrayGraphContainer />
                     <AlgorithmListBar />
                 </div>                
             </div>

@@ -2,36 +2,14 @@ import React, { Component } from 'react';
 import * as sortingAlgorithms from '../sortingAlgorithms/sortingAlgorithms';
 import './ArrayGraph.css';
 
-const ANIMATION_SPEED_MS = 1/6;
 const NUMBER_OF_ARRAY_BARS = 250;
+const ANIMATION_SPEED_MS = 1/6;
 const PRIMARY_COLOR = 'grey';
 const SECONDARY_COLOR = 'red';
 
 class ArrayGraph extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            array: []
-        }
-     }
-    componentDidMount() {
-        this.resetArray();
-    }
-
-    resetArray() {
-        const array = [];
-
-        for (let i = 0; i < NUMBER_OF_ARRAY_BARS; i++) {
-            array.push(randomIntFromInterval(5, 390));
-        }
-        this.setState({array}, () => {        
-            // this.bubbleSort();
-            // this.testSortingAlgorithms();
-        });
-    }
-
     bubbleSort = () => {
-        const animations = sortingAlgorithms.bubbleSort(this.state.array);
+        const animations = sortingAlgorithms.bubbleSort(this.props.array);
         const arrayBars = document.getElementsByClassName('array-bar');
         let n = 249, barsIndex = 249;
 
@@ -90,12 +68,9 @@ class ArrayGraph extends Component {
       }
 
     render() {
-        const { array } = this.state;
-
         return (
             <div className="array-container">
-                <button onClick={()=> this.bubbleSort()}>Start</button><br/>
-                {array.map((value,i) => {
+                {this.props.array.map((value,i) => {
                     return (
                     <div
                         className="array-bar"
