@@ -1,3 +1,23 @@
+export const selectionSort = array => {
+    const animations = [];
+
+    for(let i = 0; i < array.length - 1; i++) {
+        let min = i;
+        for(let j = i+1; j < array.length; j++) {
+            animations.push([j,min]);
+            if(array[j] < array[min]) {
+                min = j;
+            }
+        }
+        const temp = array[i];
+        array[i] = array[min];
+        array[min] = temp;
+        animations.push([i, array[i], min, array[min]]);
+    }
+
+    return animations;
+};
+
 export const bubbleSort = array => {
     const animations = [];
 

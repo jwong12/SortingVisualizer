@@ -1,4 +1,4 @@
-const NUMBER_OF_ARRAY_BARS = 70;
+const NUMBER_OF_ARRAY_BARS = 120;
 
 const initialState = {
   unsortedArray: shuffleArray(),
@@ -7,17 +7,15 @@ const initialState = {
 
 const sortingVisualizerReducer = (state = initialState, action) => {
     switch(action.type) {
-      case 'ARRAY_GRAPH_CREATE_ARRAY': 
+      case 'ARRAY_GRAPH_SHUFFLE_ARRAY': 
         return Object.assign({}, state, {
           unsortedArray: shuffleArray(),
           startSort: false
         });
-
-      case 'ARRAY_GRAPH_START_SORTING':
+      case 'ARRAY_GRAPH_START_SORT':
         return Object.assign({}, state, {
           startSort: true
-        })
-
+        })      
       default: 
         return state;
     }

@@ -11,3 +11,21 @@
     padding-top: 15px;
     width: 750px;
 }
+
+.array-container {
+    justify-content: center;
+    min-width: 750px;
+    min-height: 340px;
+}
+  
+.array-bar {
+    width: 2px; 
+    display: inline-block;
+    margin: 0 1px;
+}
+  
+.algo-bar {
+    height: 28px;
+    display: flex;
+    justify-content: center;
+}

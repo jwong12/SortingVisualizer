@@ -5,13 +5,13 @@ const mapDispatchToProps = (dispatch) => {
   return {
     shuffleArray: () => {
       dispatch({
-        type: 'ARRAY_GRAPH_CREATE_ARRAY'
+        type: 'ARRAY_GRAPH_SHUFFLE_ARRAY'
       });
     },
-    startSorting: () => {
+    startSort: () => {
       dispatch({
-        type: 'ARRAY_GRAPH_START_SORTING'
-      })
+        type: 'ARRAY_GRAPH_START_SORT'
+      });
     }
   };
 };
