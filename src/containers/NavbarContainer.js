@@ -5,12 +5,17 @@ const mapDispatchToProps = (dispatch) => {
   return {
     shuffleArray: () => {
       dispatch({
-        type: 'ARRAY_GRAPH_SHUFFLE_ARRAY'
+        type: 'SORTING_VISUALIZER_SHUFFLE_ARRAY'
+      });
+    },
+    randomizeAlgo: () => {
+      dispatch({
+        type: 'SORTING_VISUALIZER_RANDOMIZE_ALGO'
       });
     },
     startSort: () => {
       dispatch({
-        type: 'ARRAY_GRAPH_START_SORT'
+        type: 'SORTING_VISUALIZER_START_SORT'
       });
     }
   };

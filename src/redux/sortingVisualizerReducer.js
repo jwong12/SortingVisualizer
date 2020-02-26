@@ -2,17 +2,22 @@ const NUMBER_OF_ARRAY_BARS = 120;
 
 const initialState = {
   unsortedArray: shuffleArray(),
-  startSort: false
+  startSort: false,
+  randomAlgo: 0
 };
 
 const sortingVisualizerReducer = (state = initialState, action) => {
     switch(action.type) {
-      case 'ARRAY_GRAPH_SHUFFLE_ARRAY': 
+      case 'SORTING_VISUALIZER_SHUFFLE_ARRAY': 
         return Object.assign({}, state, {
           unsortedArray: shuffleArray(),
           startSort: false
         });
-      case 'ARRAY_GRAPH_START_SORT':
+      case 'SORTING_VISUALIZER_RANDOMIZE_ALGO': 
+        return Object.assign({}, state, {
+          randomAlgo: state.randomAlgo+1
+      });
+      case 'SORTING_VISUALIZER_START_SORT':
         return Object.assign({}, state, {
           startSort: true
         })      
@@ -30,7 +35,6 @@ function shuffleArray() {
 
   return array;
 }
-
 
 function randomIntFromInterval(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);

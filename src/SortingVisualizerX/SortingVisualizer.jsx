@@ -22,22 +22,34 @@ class SortingVisualizer extends Component {
     }
     
     componentDidMount() {
+        const algorithm = this.selectAlgorithm(algorithmArray[randomIntFromInterval(0,1)]);
+
         this.setState({            
             [this.componentRef.current]: {
                 array: [...this.props.array],
-                algorithm: algorithmArray[randomIntFromInterval(0,1)]
+                algorithm 
             }
         });
     }
 
-    componentDidUpdate(prevProps) {
-        if(prevProps !== this.props && !this.props.startSort) {
+    componentDidUpdate(prevProps, prevState) {
+        if(prevProps.array !== this.props.array) {
             this.setState({            
                 [this.componentRef.current]: {
                     array: [...this.props.array],
-                    algorithm: algorithmArray[randomIntFromInterval(0,1)]
+                    algorithm: prevState[this.componentRef.current].algorithm
                 }
             });   
+        }
+
+        if(prevProps.randomAlgo !== this.props.randomAlgo) {
+            const algorithm = this.selectAlgorithm(algorithmArray[randomIntFromInterval(0,1)]);
+            this.setState({            
+                [this.componentRef.current]: {
+                    array: [...this.props.array],
+                    algorithm
+                }
+            }); 
         }
 
         if(this.props.startSort) {
@@ -147,6 +159,36 @@ class SortingVisualizer extends Component {
     }
 
     selectAlgorithm(algorithm) {
+        const node = this.componentRef.current;
+        const buttons = node.getElementsByClassName('algo-buttons');
+
+        for(let i = 0; i < buttons.length; i++) {
+            if(algorithm === buttons[i].id){
+                buttons[i].style.color = '#ffffff';
+                buttons[i].style.backgroundColor = '#f6b93b';
+            } else {
+                buttons[i].style.color = '#494949';
+                buttons[i].style.backgroundColor = '#ffffff';
+            }
+        }        
+
+        return algorithm;
+    }
+
+    handleClickAlgoButton(algorithm) {
+        const node = this.componentRef.current;
+        const buttons = node.getElementsByClassName('algo-buttons');
+        const rand = randomIntFromInterval(0, 1);
+        console.log(buttons, rand);
+
+        for(let i = 0; i < buttons; i++) {
+            if(algorithm === buttons[i].id){
+                buttons[rand].style.color = '#ffffff';
+                buttons[rand].style.backgroundColor = '#f6b93b';
+                buttons[rand].style.border = '1px solid #494949';
+            }
+        }        
+
         this.setState({
             [this.componentRef.current]: {
                 algorithm
@@ -186,14 +228,13 @@ class SortingVisualizer extends Component {
                         })}
                     </div>
                     <div className="algo-bar">
-                        <button onClick={() => this.props.selectAlgorithm(algorithmArray[0])}>SelectionSort</button>
-                        <button onClick={() => this.props.selectAlgorithm(algorithmArray[1])}>BubbleSort</button>
-                        <button>MergeSort</button>
-                        <button>Comparing Count Sort</button>
-                        <button>Distribution Count Sort</button>
-                        <button>... Sort</button>
-                        <button>... Sort</button>
-                        <button>... Sort</button>
+                        <button className="algo-buttons" id="selectionSort" onClick={() => this.props.selectAlgorithm(algorithmArray[0])}>SelectionSort</button>
+                        <button className="algo-buttons" id="bubbleSort" onClick={() => this.props.selectAlgorithm(algorithmArray[1])}>BubbleSort</button>
+                        <button className="algo-buttons" >MergeSort</button>
+                        <button className="algo-buttons" >Comparing Count Sort</button>
+                        <button className="algo-buttons" >Distribution Count Sort</button>
+                        <button className="algo-buttons" >... Sort</button>
+                        <button className="algo-buttons" >... Sort</button>
                     </div>
                 </div>
             </div>
