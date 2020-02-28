@@ -3,7 +3,8 @@ const NUMBER_OF_ARRAY_BARS = 120;
 const initialState = {
   unsortedArray: shuffleArray(),
   startSort: false,
-  randomAlgo: 0
+  isArraySorted: false,
+  randomAlgoClicks: 0
 };
 
 const sortingVisualizerReducer = (state = initialState, action) => {
@@ -11,15 +12,18 @@ const sortingVisualizerReducer = (state = initialState, action) => {
       case 'SORTING_VISUALIZER_SHUFFLE_ARRAY': 
         return Object.assign({}, state, {
           unsortedArray: shuffleArray(),
-          startSort: false
+          startSort: false,
+          isArraySorted: false
         });
       case 'SORTING_VISUALIZER_RANDOMIZE_ALGO': 
         return Object.assign({}, state, {
-          randomAlgo: state.randomAlgo+1
+          randomAlgoClicks: state.randomAlgoClicks+1,
+          startSort: false
       });
       case 'SORTING_VISUALIZER_START_SORT':
         return Object.assign({}, state, {
-          startSort: true
+          startSort: true,
+          isArraySorted: true
         })      
       default: 
         return state;

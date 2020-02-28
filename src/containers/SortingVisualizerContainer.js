@@ -5,7 +5,8 @@ const mapStateToProps = (state) => {
   return { 
     array: state.unsortedArray, 
     startSort: state.startSort,
-    randomAlgo: state.randomAlgo
+    randomAlgoClicks: state.randomAlgoClicks,
+    isArraySorted: state.isArraySorted
   }
 };
 
