@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import * as sortingAlgorithms from '../sortingAlgorithms/sortingAlgorithms';
+import * as Algo from '../sortingAlgorithms/sortingAlgorithms';
 import './SortingVisualizer.css';
 
-const algorithmArray = ['selectionSort', 'bubbleSort'];
+const algorithmArray = ['selectionSort', 'bubbleSort', 'mergeSort'];
 const NUMBER_OF_ARRAY_BARS = 120; // for testing
 const ANIMATION_SPEED_MS = 2;
 const PRIMARY_COLOR = 'grey';
@@ -34,6 +34,7 @@ class SortingVisualizer extends Component {
 
     componentDidUpdate(prevProps, prevState) {
         if(prevProps.array !== this.props.array) {
+            // this.testSortingAlgorithms();
             this.setState({            
                 [this.componentRef.current]: {
                     array: [...this.props.array],
@@ -70,6 +71,9 @@ class SortingVisualizer extends Component {
                 case algorithmArray[1]:
                     this.bubbleSort();
                     break;
+                case algorithmArray[2]:
+                    this.mergeSort();
+                    break;
                 default:
                     console.error('no algorithm selected')
             }
@@ -77,7 +81,7 @@ class SortingVisualizer extends Component {
     }
 
     selectionSort = () => {
-        const animations = sortingAlgorithms.selectionSort(this.state[this.componentRef.current].array);
+        const animations = Algo.getSelectionSortAnimations(this.state[this.componentRef.current].array);
         const node = this.componentRef.current;
         const arrayBars = node.getElementsByClassName('array-bar');
         let barsIndex = 0, n = 0;
@@ -123,7 +127,7 @@ class SortingVisualizer extends Component {
     }
 
     bubbleSort = () => {
-        const animations = sortingAlgorithms.bubbleSort(this.state[this.componentRef.current].array);
+        const animations = Algo.getBubbleSortAnimations(this.state[this.componentRef.current].array);
         const node = this.componentRef.current;
         const arrayBars = node.getElementsByClassName('array-bar');
         let isColorChange, n = 119, barsIndex = 119; // 249
@@ -168,6 +172,52 @@ class SortingVisualizer extends Component {
         }
     }
 
+    mergeSort() {
+        const animations = Algo.getMergeSortAnimations(this.state[this.componentRef.current].array);
+        const node = this.componentRef.current;
+        const arrayBars = node.getElementsByClassName('array-bar');
+
+        for (let i = 0; i < animations.length; i++) {
+            const isColorChange = i % 3 !== 2; // 1st and 2nd true, 3rd false
+
+            if (isColorChange) { // 1st and 2nd [i] processed
+                const [barOneIdx, barTwoIdx] = animations[i];
+                const barOneStyle = arrayBars[barOneIdx].style;
+                const barTwoStyle = arrayBars[barTwoIdx].style;
+                const color = i % 3 === 0 ? SECONDARY_COLOR : PRIMARY_COLOR; // 1st true, 2nd and 3rd false (3rd don't execute)                
+
+                if(animations[i].length !== 3) {
+                    setTimeout(() => {
+                        barOneStyle.backgroundColor = color;
+                        barTwoStyle.backgroundColor = color;
+                    }, i * ANIMATION_SPEED_MS * 3);
+
+                } else {
+                    const [barOneIdx] = animations[i]; 
+                    const barOneStyle = arrayBars[barOneIdx].style;
+
+                    setTimeout(() => {                    
+                        barOneStyle.backgroundColor = 'green';
+                    }, i * ANIMATION_SPEED_MS * 3);    
+                }
+
+            } else { // every 3rd i 
+                const [barOneIdx, newHeight] = animations[i]; 
+                const barOneStyle = arrayBars[barOneIdx].style;
+                
+                setTimeout(() => {                    
+                    barOneStyle.height = `${newHeight}px`;
+
+                    if(animations[i].length === 3) {
+                        setTimeout(() => {                    
+                            barOneStyle.backgroundColor = 'green';
+                        }, 0);    
+                    }
+                }, i * ANIMATION_SPEED_MS * 3);              
+            }
+        }
+      }
+
     highlightAlgoButton(algorithm) {
         const node = this.componentRef.current;
         const buttons = node.getElementsByClassName('algo-buttons');
@@ -194,10 +244,15 @@ class SortingVisualizer extends Component {
                     array: this.getSortedArray(),
                     algorithm
                 }
+            });            
+        } else {
+            this.setState({            
+                [this.componentRef.current]: {
+                    array: [...this.props.array],
+                    algorithm
+                }
             });
-            
         }
-        
     }
 
     getSortedArray() {
@@ -213,17 +268,17 @@ class SortingVisualizer extends Component {
     }
 
     testSortingAlgorithms() {
-        for (let i = 0; i < 100; i++) {
-            const array = [];
+        const jsSortedArray = this.props.array.sort((a, b) => a - b);
+        const bubbleSorted = Algo.getBubbleSortAnimations(this.props.array.slice());
+        const selectionSorted = Algo.getSelectionSortAnimations(this.props.array.slice());
+        const mergeSorted = Algo.getMergeSortAnimations(this.props.array.slice());
 
-            for (let i = 0; i < NUMBER_OF_ARRAY_BARS; i++) {
-                array.push(randomIntFromInterval(5, 390));
-            }
+        console.log(jsSortedArray.length)
+        console.log(bubbleSorted.length)
+        console.log(selectionSorted.length)
+        console.log(mergeSorted.length)
 
-            const jsSortedArray = array.slice().sort((a, b) => a - b);
-            const sortedArray = sortingAlgorithms.bubbleSort(array.slice());
-            console.log(arraysAreEqual(jsSortedArray, sortedArray));
-        }
+        // console.log(arraysAreEqual(jsSortedArray, sortedArray));
       }
 
     render() {
@@ -246,7 +301,7 @@ class SortingVisualizer extends Component {
                     <div className="algo-bar">
                         <button className="algo-buttons" id="selectionSort" onClick={() => this.handleClickAlgoButton(algorithmArray[0])}>SelectionSort</button>
                         <button className="algo-buttons" id="bubbleSort" onClick={() => this.handleClickAlgoButton(algorithmArray[1])}>BubbleSort</button>
-                        <button className="algo-buttons" >MergeSort</button>
+                        <button className="algo-buttons" id="mergeSort" onClick={() => this.handleClickAlgoButton(algorithmArray[2])}>MergeSort</button>
                         <button className="algo-buttons" >Comparing Count Sort</button>
                         <button className="algo-buttons" >Distribution Count Sort</button>
                         <button className="algo-buttons" >... Sort</button>
