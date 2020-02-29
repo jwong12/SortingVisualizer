@@ -1,6 +1,6 @@
 .canvas {
     border: solid 1px rgb(105, 105, 105, 0.8);
-    background-color: rgb(231, 231, 231);
+    background-color: rgb(241, 241, 241);
     display: flex;
     align-items: center;    
     margin: 1px;
@@ -8,26 +8,20 @@
 
 .canvas-content {
     margin: auto;
-    padding-top: 15px;
-    width: 750px;
 }
 
 .array-container {
     justify-content: center;
-    min-width: 750px;
-    height: 340px;
-    /* display: table-cell;
-    vertical-align: middle; */
+    padding: 15px 0 10px;
 }
   
-.array-bar {
+.array-bar, .static-bar {
     width: 2px; 
     display: inline-block;
     margin: 0 1px;
 }
   
 .algo-bar {
-    /* height: 28px; */
     display: flex;
     justify-content: center;
 }

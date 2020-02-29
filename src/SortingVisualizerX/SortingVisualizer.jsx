@@ -5,8 +5,10 @@ import './SortingVisualizer.css';
 const algorithmArray = ['selectionSort', 'bubbleSort', 'mergeSort'];
 const NUMBER_OF_ARRAY_BARS = 120; // for testing
 const ANIMATION_SPEED_MS = 2;
-const PRIMARY_COLOR = 'grey';
-const SECONDARY_COLOR = 'red';
+const PRIMARY_COLOR = 'darkkhaki';
+const SECONDARY_COLOR = 'tomato';
+const SORTED_COLOR = 'deepskyblue';
+const DEFAULT_COLOR = 'grey';
 
 class SortingVisualizer extends Component {
     constructor(props) {
@@ -35,9 +37,17 @@ class SortingVisualizer extends Component {
     componentDidUpdate(prevProps, prevState) {
         if(prevProps.array !== this.props.array) {
             // this.testSortingAlgorithms();
+            const node = this.componentRef.current;
+            const arrayBars = node.getElementsByClassName('array-bar');
+
+            for(let i = 0; i < arrayBars.length; i++) {
+                arrayBars[i].style.backgroundColor = DEFAULT_COLOR;
+            }
+            const shuffleArray = [...this.props.array];
+
             this.setState({            
                 [this.componentRef.current]: {
-                    array: [...this.props.array],
+                    array: shuffleArray,
                     algorithm: prevState[this.componentRef.current].algorithm
                 }
             });   
@@ -97,13 +107,13 @@ class SortingVisualizer extends Component {
 
                     setTimeout(() => {                            
                         const barStyle = arrayBars[barsIndex++].style;
-                        barStyle.backgroundColor = 'green';
+                        barStyle.backgroundColor = SORTED_COLOR;
                     }, ANIMATION_SPEED_MS); 
 
                     if(++n === 119) {
                         setTimeout(() => {
                             const barStyle = arrayBars[n].style;
-                            barStyle.backgroundColor = 'green';
+                            barStyle.backgroundColor = SORTED_COLOR;
                         }, ANIMATION_SPEED_MS);  
                     }     
                 }, i * ANIMATION_SPEED_MS);
@@ -157,13 +167,13 @@ class SortingVisualizer extends Component {
                     if(barTwoIdx === n || barOneIdx === n) {
                         setTimeout(() => {                            
                             const barStyle = arrayBars[barsIndex--].style;
-                            barStyle.backgroundColor = 'green';
+                            barStyle.backgroundColor = SORTED_COLOR;
                         }, ANIMATION_SPEED_MS);     
 
                         if(--n === 0) {
                             setTimeout(() => {
                                 const barStyle = arrayBars[0].style;
-                                barStyle.backgroundColor = 'green';
+                                barStyle.backgroundColor = SORTED_COLOR;
                             }, ANIMATION_SPEED_MS);   
                         }
                     }                
@@ -197,7 +207,7 @@ class SortingVisualizer extends Component {
                     const barOneStyle = arrayBars[barOneIdx].style;
 
                     setTimeout(() => {                    
-                        barOneStyle.backgroundColor = 'green';
+                        barOneStyle.backgroundColor = SORTED_COLOR;
                     }, i * ANIMATION_SPEED_MS * 3);    
                 }
 
@@ -210,7 +220,7 @@ class SortingVisualizer extends Component {
 
                     if(animations[i].length === 3) {
                         setTimeout(() => {                    
-                            barOneStyle.backgroundColor = 'green';
+                            barOneStyle.backgroundColor = SORTED_COLOR;
                         }, 0);    
                     }
                 }, i * ANIMATION_SPEED_MS * 3);              
@@ -292,18 +302,19 @@ class SortingVisualizer extends Component {
                                 className="array-bar"
                                 key={i}
                                 style={{ 
-                                    backgroundColor: 'grey',
+                                    backgroundColor: DEFAULT_COLOR,
                                     height: `${value}px`
                                 }}
                             ></div>);
                         })}
+                        <div className="static-bar" style={{ height: `330px` }}></div>
                     </div>
                     <div className="algo-bar">
                         <button className="algo-buttons" id="selectionSort" onClick={() => this.handleClickAlgoButton(algorithmArray[0])}>SelectionSort</button>
                         <button className="algo-buttons" id="bubbleSort" onClick={() => this.handleClickAlgoButton(algorithmArray[1])}>BubbleSort</button>
                         <button className="algo-buttons" id="mergeSort" onClick={() => this.handleClickAlgoButton(algorithmArray[2])}>MergeSort</button>
-                        <button className="algo-buttons" >Comparing Count Sort</button>
-                        <button className="algo-buttons" >Distribution Count Sort</button>
+                        <button className="algo-buttons" >HeapSort</button>
+                        <button className="algo-buttons" >QuickSort</button>
                         <button className="algo-buttons" >... Sort</button>
                         <button className="algo-buttons" >... Sort</button>
                     </div>
