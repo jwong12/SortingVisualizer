@@ -43,6 +43,56 @@ export function getBubbleSortAnimations(array) {
     return animations;
 };
 
+export function getHeapSortAnimations(array) {
+    const animations = []
+    heapSort(array, animations);
+    return animations;
+}
+
+function heapSort(arr, animations) {
+    let i = Math.floor(arr.length / 2 - 1);
+    let k = arr.length - 1;
+    
+    while (i >= 0) {
+        heapify(arr, arr.length, i, animations);
+        i--;
+    }
+
+    while(k >= 0) {
+        [arr[0], arr[k]] = [arr[k], arr[0]];
+        animations.push([k, arr[k], 0, arr[0], 0]);
+        heapify(arr, k, 0, animations);
+        k--;
+    }
+
+    return arr;
+}
+
+function heapify(arr, length, i, animations) {
+    let largest = i;
+    let left = i * 2 + 1;
+    let right = left + 1;
+
+    if(left < length && arr[left] > arr[largest]) {
+        largest = left;
+        animations.push([largest, left]);
+    }
+
+    if(right < length && arr[right] > arr[largest]) {
+        largest = right;
+        animations.push([largest, right]);
+    }
+
+    if(largest !== i) {
+        animations.push([largest, arr[i], i, arr[largest]]);
+
+        [arr[i], arr[largest]] = [arr[largest], arr[i]];
+        heapify(arr, length, largest, animations);
+    }
+
+    return arr;
+}
+
 export function getMergeSortAnimations(array) {
     const animations = [];
     if (array.length <= 1) return array;
@@ -133,8 +183,7 @@ function merge(
             animations.push([k, auxiliaryArray[j]]);
             mainArray[k++] = auxiliaryArray[j++];
         }
-    }
-    
+    }    
     
 }
   

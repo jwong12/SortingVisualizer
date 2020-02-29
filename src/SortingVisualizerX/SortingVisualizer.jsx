@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import * as Algo from '../sortingAlgorithms/sortingAlgorithms';
 import './SortingVisualizer.css';
 
-const algorithmArray = ['selectionSort', 'bubbleSort', 'mergeSort'];
+const algorithmArray = ['selectionSort', 'bubbleSort', 'mergeSort', 'heapSort'];
 const NUMBER_OF_ARRAY_BARS = 120; // for testing
 const ANIMATION_SPEED_MS = 2;
 const PRIMARY_COLOR = 'darkkhaki';
@@ -83,6 +83,9 @@ class SortingVisualizer extends Component {
                     break;
                 case algorithmArray[2]:
                     this.mergeSort();
+                    break;
+                case algorithmArray[3]:
+                    this.heapSort();
                     break;
                 default:
                     console.error('no algorithm selected')
@@ -226,6 +229,70 @@ class SortingVisualizer extends Component {
                 }, i * ANIMATION_SPEED_MS * 3);              
             }
         }
+    }
+
+    heapSort() {
+        const animations = Algo.getHeapSortAnimations(this.state[this.componentRef.current].array);
+        const node = this.componentRef.current;
+        const arrayBars = node.getElementsByClassName('array-bar');
+
+        for (let i = 0; i < animations.length; i++) {
+            if(animations[i].length === 2) {
+                const [barOneIdx, barTwoIdx] = animations[i];
+                const barOneStyle = arrayBars[barOneIdx].style;
+                const barTwoStyle = arrayBars[barTwoIdx].style;
+
+                setTimeout(() => {
+                    barOneStyle.backgroundColor = SECONDARY_COLOR;
+                    barTwoStyle.backgroundColor = SECONDARY_COLOR;
+
+                    setTimeout(() => {
+                        barOneStyle.backgroundColor = PRIMARY_COLOR;
+                        barTwoStyle.backgroundColor = PRIMARY_COLOR;
+                    }, 10);
+                }, i * ANIMATION_SPEED_MS * 4.7);
+                
+            } else if(animations[i].length === 4) {
+                const [barOneIdx, barOneHeight, barTwoIdx, barTwoHeight] = animations[i]; 
+                const barOneStyle = arrayBars[barOneIdx].style;
+                const barTwoStyle = arrayBars[barTwoIdx].style;                 
+
+                setTimeout(() => {         
+                    
+                    barOneStyle.backgroundColor = SECONDARY_COLOR;                  
+                    barTwoStyle.backgroundColor = SECONDARY_COLOR;
+
+                    setTimeout(() => {   
+                        barOneStyle.height = `${barOneHeight}px`;
+                        barTwoStyle.height = `${barTwoHeight}px`;                      
+                        barOneStyle.backgroundColor = PRIMARY_COLOR;                  
+                        barTwoStyle.backgroundColor = PRIMARY_COLOR;
+                    }, 10)
+                }, i * ANIMATION_SPEED_MS * 4.7); 
+
+            } else {
+                const [barOneIdx, barOneHeight, barTwoIdx, barTwoHeight] = animations[i]; 
+                const barOneStyle = arrayBars[barOneIdx].style;
+                const barTwoStyle = arrayBars[barTwoIdx].style;                 
+
+                setTimeout(() => {         
+                    barOneStyle.height = `${barOneHeight}px`;
+                    barTwoStyle.height = `${barTwoHeight}px`;
+                    barOneStyle.backgroundColor = SORTED_COLOR;     
+                    barTwoStyle.backgroundColor = SECONDARY_COLOR;  
+
+                    setTimeout(() => {
+                        barTwoStyle.backgroundColor = PRIMARY_COLOR;  
+                    }, 10) 
+
+                    if(i === animations.length - 1) {
+                        setTimeout(() => {
+                            arrayBars[0].style.backgroundColor = SORTED_COLOR;   
+                        }, 10) 
+                    }   
+                }, i * ANIMATION_SPEED_MS * 4.75); 
+            }            
+        }
       }
 
     highlightAlgoButton(algorithm) {
@@ -279,16 +346,19 @@ class SortingVisualizer extends Component {
 
     testSortingAlgorithms() {
         const jsSortedArray = this.props.array.sort((a, b) => a - b);
-        const bubbleSorted = Algo.getBubbleSortAnimations(this.props.array.slice());
-        const selectionSorted = Algo.getSelectionSortAnimations(this.props.array.slice());
-        const mergeSorted = Algo.getMergeSortAnimations(this.props.array.slice());
+        // const bubbleSorted = Algo.getBubbleSortAnimations(this.props.array.slice());
+        // const selectionSorted = Algo.getSelectionSortAnimations(this.props.array.slice());
+        // const mergeSorted = Algo.getMergeSortAnimations(this.props.array.slice());
+        const heapSorted = Algo.getHeapSortAnimations(this.props.array.slice());
 
-        console.log(jsSortedArray.length)
-        console.log(bubbleSorted.length)
-        console.log(selectionSorted.length)
-        console.log(mergeSorted.length)
+        console.log(jsSortedArray)
+        // console.log(bubbleSorted.length)
+        // console.log(selectionSorted.length)
+        // console.log(mergeSorted.length)
+        console.log(heapSorted)
 
-        // console.log(arraysAreEqual(jsSortedArray, sortedArray));
+
+        console.log(arraysAreEqual(jsSortedArray, heapSorted));
       }
 
     render() {
@@ -313,7 +383,7 @@ class SortingVisualizer extends Component {
                         <button className="algo-buttons" id="selectionSort" onClick={() => this.handleClickAlgoButton(algorithmArray[0])}>SelectionSort</button>
                         <button className="algo-buttons" id="bubbleSort" onClick={() => this.handleClickAlgoButton(algorithmArray[1])}>BubbleSort</button>
                         <button className="algo-buttons" id="mergeSort" onClick={() => this.handleClickAlgoButton(algorithmArray[2])}>MergeSort</button>
-                        <button className="algo-buttons" >HeapSort</button>
+                        <button className="algo-buttons" id="heapSort" onClick={() => this.handleClickAlgoButton(algorithmArray[3])}>HeapSort</button>
                         <button className="algo-buttons" >QuickSort</button>
                         <button className="algo-buttons" >... Sort</button>
                         <button className="algo-buttons" >... Sort</button>
