@@ -6,10 +6,9 @@
 .grid {
   display: grid;  
   grid-template-columns: repeat(auto-fill, minmax(700px, 1fr));
-  /* grid-auto-rows: minmax(50px, auto); */
   grid-gap: 0.1em;
-  min-width:1420px;
-  min-height: 92.5vh;
+  min-width:1410px;
+  min-height: 92vh;
 }
 
 .App-header {

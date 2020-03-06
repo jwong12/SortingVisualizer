@@ -22,7 +22,7 @@ export function getBubbleSortAnimations(array) {
     const animations = [];
 
     for(let i = 0; i < array.length - 1; i++) {
-        const sortedNumbers = array.length - 1 - i;
+        const sortedNumbers = array.length - 1 - i; 
 
         for(let j = 0; j < sortedNumbers; j++) {
             animations.push([j,j+1]);
@@ -31,15 +31,12 @@ export function getBubbleSortAnimations(array) {
                 const temp = array[j];
                 array[j] = array[j+1];
                 array[j+1] = temp;
-                animations.push([j+1, array[j+1], j, array[j]]);
-
-            } else {
-                animations.push([j, array[j], j+1, array[j+1]]);
-            }
+            } 
+            animations.push([j+1, array[j+1], j, array[j]]);
             animations.push([j,j+1]);
         }
+        // animations.push([sortedNumbers]);
     }
-    
     return animations;
 };
 

@@ -98,7 +98,7 @@ class SortingVisualizer extends Component {
         const node = this.componentRef.current;
         const arrayBars = node.getElementsByClassName('array-bar');
         let barsIndex = 0, n = 0;
-
+        
         for(let i = 0; i < animations.length; i++) {
             if(animations[i].length === 4) {
                 setTimeout(() => {
@@ -144,6 +144,7 @@ class SortingVisualizer extends Component {
         const node = this.componentRef.current;
         const arrayBars = node.getElementsByClassName('array-bar');
         let isColorChange, n = 119, barsIndex = 119; // 249
+        console.log(animations.length);
 
         for (let i = 0; i < animations.length; i++) {
             isColorChange = i % 3 !== 1;
@@ -157,7 +158,7 @@ class SortingVisualizer extends Component {
                 setTimeout(() => {
                     barOneStyle.backgroundColor = color;
                     barTwoStyle.backgroundColor = color;
-                }, i * ANIMATION_SPEED_MS/3);
+                }, i * ANIMATION_SPEED_MS / 3);
 
             } else { // every 2nd                 
                 setTimeout(() => {
@@ -184,6 +185,53 @@ class SortingVisualizer extends Component {
             }
         }
     }
+
+    // bubbleSort = () => {
+    //     const animations = Algo.getBubbleSortAnimations(this.state[this.componentRef.current].array);
+    //     const node = this.componentRef.current;
+    //     const arrayBars = node.getElementsByClassName('array-bar');
+    //     console.log(animations.length);
+
+    //     for (let i = 0; i < animations.length; i++) {
+    //         if(animations[i].length === 2) {               
+    //             setTimeout(() => {
+    //                 const [barOneIdx, barTwoIdx] = animations[i];
+    //                 const barOneStyle = arrayBars[barOneIdx].style;
+    //                 const barTwoStyle = arrayBars[barTwoIdx].style;
+    //                 barOneStyle.backgroundColor = SECONDARY_COLOR;
+    //                 barTwoStyle.backgroundColor = SECONDARY_COLOR;
+
+    //                 setTimeout(() => {
+    //                     barOneStyle.backgroundColor = PRIMARY_COLOR;
+    //                     barTwoStyle.backgroundColor = PRIMARY_COLOR;
+    //                 }, 5);                    
+    //             }, i * ANIMATION_SPEED_MS * 2);
+
+    //         } else if(animations[i].length === 4) {                
+    //             setTimeout(() => {            
+    //                 const [barOneIdx, barOneHeight, barTwoIdx, barTwoHeight] = animations[i];
+    //                 const barOneStyle = arrayBars[barOneIdx].style;
+    //                 const barTwoStyle = arrayBars[barTwoIdx].style;
+    //                 barOneStyle.height = `${barOneHeight}px`;
+    //                 barTwoStyle.height = `${barTwoHeight}px`;  
+    //                 barOneStyle.backgroundColor = SECONDARY_COLOR;
+    //                 barTwoStyle.backgroundColor = SECONDARY_COLOR;
+
+    //                     setTimeout(() => {                            
+    //                         barOneStyle.backgroundColor = PRIMARY_COLOR;
+    //                         barTwoStyle.backgroundColor = PRIMARY_COLOR;
+    //                     }, 5);
+    //             }, i * ANIMATION_SPEED_MS * 2);
+
+    //         } else {               
+    //             setTimeout(() => {
+    //                 const [barOneIdx] = animations[i];
+    //                 const barOneStyle = arrayBars[barOneIdx].style;
+    //                 barOneStyle.backgroundColor = SORTED_COLOR;
+    //             }, i * ANIMATION_SPEED_MS * 2.05 + 10);
+    //         }            
+    //     }
+    // }
 
     mergeSort() {
         const animations = Algo.getMergeSortAnimations(this.state[this.componentRef.current].array);
@@ -258,7 +306,6 @@ class SortingVisualizer extends Component {
                 const barTwoStyle = arrayBars[barTwoIdx].style;                 
 
                 setTimeout(() => {         
-                    
                     barOneStyle.backgroundColor = SECONDARY_COLOR;                  
                     barTwoStyle.backgroundColor = SECONDARY_COLOR;
 
