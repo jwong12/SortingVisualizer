@@ -5,9 +5,15 @@ import './App.css';
 
 function App() {
   return (
-    <div className="App">
+    <div 
+      className="App"
+      data-test="app-component"
+    >
       <NavbarContainer />
-      <div className="grid">
+      <div 
+        className="grid"
+        data-test="grid-div"
+      >
         <SortingVisualizerContainer />
         <SortingVisualizerContainer />
         <SortingVisualizerContainer />
