@@ -98,7 +98,6 @@ class SortingVisualizer extends Component {
         const animations = Algo.getSelectionSortAnimations(this.state[this.componentRef.current].array);
         const node = this.componentRef.current;
         const arrayBars = node.getElementsByClassName('array-bar');
-        let barsIndex = 0, n = 0;
         
         for(let i = 0; i < animations.length; i++) {
             if(animations[i].length === 4) {
@@ -110,13 +109,16 @@ class SortingVisualizer extends Component {
                     barTwoStyle.height = `${barTwoHeight}px`;  
 
                     setTimeout(() => {                            
-                        const barStyle = arrayBars[barsIndex++].style;
-                        barStyle.backgroundColor = this.props.sortedColor;
+                        if (barOneIdx < barTwoIdx) {
+                            barOneStyle.backgroundColor = this.props.sortedColor;
+                        } else {
+                            barTwoStyle.backgroundColor = this.props.sortedColor;
+                        }
                     }, ANIMATION_SPEED_MS); 
 
-                    if(++n === 119) {
+                    if(i === animations.length -1) {
                         setTimeout(() => {
-                            const barStyle = arrayBars[n].style;
+                            const barStyle = arrayBars[this.props.array.length-1].style;
                             barStyle.backgroundColor = this.props.sortedColor;
                         }, ANIMATION_SPEED_MS);  
                     }     
@@ -478,7 +480,17 @@ SortingVisualizer.propTypes = {
     array: PropTypes.array,
     startSort: PropTypes.bool,
     randomAlgoClicks: PropTypes.number,
-    isArraySorted: PropTypes.bool
+    isArraySorted: PropTypes.bool,
+    isDarkTheme: PropTypes.bool,
+    primaryColor: PropTypes.string,
+    secondaryColor: PropTypes.string,
+    sortedColor: PropTypes.string,
+    defaultColor: PropTypes.string,
+    backgroundColor: PropTypes.string,
+    algoButtonBg: PropTypes.string,
+    algoButtonColor: PropTypes.string,
+    algoButtonSelectedBg: PropTypes.string,
+    algoButtonSelectedColor: PropTypes.string
 };
 
 export default SortingVisualizer;

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import SortingVisualizerContainer from './containers/SortingVisualizerContainer';
 import NavbarContainer from './containers/NavbarContainer';
 import './App.css';
@@ -8,7 +8,7 @@ function App(props) {
     <div 
       className="App"
       data-test="app-component"
-      style={{ backgroundColor: this.props.appBackgroundColor }}
+      style={{ backgroundColor: props.appBackgroundColor }}
     >
       <NavbarContainer />
       <div 

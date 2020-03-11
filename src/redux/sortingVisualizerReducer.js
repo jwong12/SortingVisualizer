@@ -37,7 +37,6 @@ const sortingVisualizerReducer = (state = initialState, action) => {
           isArraySorted: true
         })   
       case 'SORTING_VISUALIZER_CHANGE_THEME':
-        console.log('changed themes');
         return Object.assign({}, state, {
           isDarkTheme: !state.isDarkTheme,
           primaryColor: !state.isDarkTheme ? '#ab9d78' : 'darkkhaki',
