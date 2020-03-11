@@ -3,23 +3,25 @@ import SortingVisualizerContainer from './containers/SortingVisualizerContainer'
 import NavbarContainer from './containers/NavbarContainer';
 import './App.css';
 
-class App extends Component {
-  render () {
-    return (
+function App(props) {
+  return (
+    <div 
+      className="App"
+      data-test="app-component"
+      style={{ backgroundColor: this.props.appBackgroundColor }}
+    >
+      <NavbarContainer />
       <div 
-        className="App"
-        style={{ backgroundColor: this.props.appBackgroundColor }}
+        className="grid"
+        data-test="grid-div"
       >
-        <NavbarContainer />
-        <div className="grid">
-          <SortingVisualizerContainer />
-          <SortingVisualizerContainer />
-          <SortingVisualizerContainer />
-          <SortingVisualizerContainer />
-        </div>      
-      </div>
-    );
-  }
+        <SortingVisualizerContainer />
+        <SortingVisualizerContainer />
+        <SortingVisualizerContainer />
+        <SortingVisualizerContainer />
+      </div>      
+    </div>
+  );
 }
 
 export default App;
