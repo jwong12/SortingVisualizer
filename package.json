@@ -1,5 +1,5 @@
 {
-  "homepage": "http://jwong12.github.io/SortingVisualizerX",
+  "homepage": "https://jwong12.github.io/SortingVisualizerX/",
   "name": "algorithms-visualization",
   "version": "0.1.0",
   "private": true,
@@ -15,9 +15,9 @@
   },
   "scripts": {
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "deploy": "gh-pages -d build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import * as Algo from '../sortingAlgorithms/sortingAlgorithms';
 import './SortingVisualizer.css';
 
-const algorithmArray = ['selectionSort', 'bubbleSort', 'mergeSort', 'heapSort'];
-const NUMBER_OF_ARRAY_BARS = 120; // for testing
+const algorithmArray = ['selectionSort', 'bubbleSort', 'mergeSort', 'heapSort', 'quickSort'];
 const ANIMATION_SPEED_MS = 2;
 const PRIMARY_COLOR = 'darkkhaki';
 const SECONDARY_COLOR = 'tomato';
@@ -25,7 +24,6 @@ class SortingVisualizer extends Component {
     
     componentDidMount() {
         const algorithm = this.highlightAlgoButton(algorithmArray[randomIntFromInterval(0,algorithmArray.length-1)]);
-        // the array from this.props is copied into this component's state.
         this.setState({            
             [this.componentRef.current]: {
                 array: [...this.props.array],
@@ -87,6 +85,9 @@ class SortingVisualizer extends Component {
                 case algorithmArray[3]:
                     this.heapSort();
                     break;
+                case algorithmArray[4]:
+                    this.quickSort();
+                    break;
                 default:
                     console.error('no algorithm selected')
             }
@@ -98,7 +99,7 @@ class SortingVisualizer extends Component {
         const node = this.componentRef.current;
         const arrayBars = node.getElementsByClassName('array-bar');
         let barsIndex = 0, n = 0;
-
+        
         for(let i = 0; i < animations.length; i++) {
             if(animations[i].length === 4) {
                 setTimeout(() => {
@@ -143,23 +144,23 @@ class SortingVisualizer extends Component {
         const animations = Algo.getBubbleSortAnimations(this.state[this.componentRef.current].array);
         const node = this.componentRef.current;
         const arrayBars = node.getElementsByClassName('array-bar');
-        let isColorChange, n = 119, barsIndex = 119; // 249
+        let isColorChange, n = 119, barsIndex = 119; 
 
         for (let i = 0; i < animations.length; i++) {
             isColorChange = i % 3 !== 1;
 
-            if (isColorChange) { // every 1st and 3rd. Eg. 0, 2, 3, 5, 6, 8
+            if (isColorChange) { 
                 const [barOneIdx, barTwoIdx] = animations[i];
                 const barOneStyle = arrayBars[barOneIdx].style;
                 const barTwoStyle = arrayBars[barTwoIdx].style;
-                const color = i % 3 !== 2 ? SECONDARY_COLOR : PRIMARY_COLOR; // 1st true, 2nd and 3rd false (3rd don't execute)
+                const color = i % 3 !== 2 ? SECONDARY_COLOR : PRIMARY_COLOR; 
                 
                 setTimeout(() => {
                     barOneStyle.backgroundColor = color;
                     barTwoStyle.backgroundColor = color;
-                }, i * ANIMATION_SPEED_MS/3);
+                }, i * ANIMATION_SPEED_MS / 3);
 
-            } else { // every 2nd                 
+            } else {                
                 setTimeout(() => {
                     const [barOneIdx, barOneHeight, barTwoIdx, barTwoHeight] = animations[i];
                     const barOneStyle = arrayBars[barOneIdx].style;
@@ -191,13 +192,13 @@ class SortingVisualizer extends Component {
         const arrayBars = node.getElementsByClassName('array-bar');
 
         for (let i = 0; i < animations.length; i++) {
-            const isColorChange = i % 3 !== 2; // 1st and 2nd true, 3rd false
+            const isColorChange = i % 3 !== 2; 
 
-            if (isColorChange) { // 1st and 2nd [i] processed
+            if (isColorChange) { 
                 const [barOneIdx, barTwoIdx] = animations[i];
                 const barOneStyle = arrayBars[barOneIdx].style;
                 const barTwoStyle = arrayBars[barTwoIdx].style;
-                const color = i % 3 === 0 ? SECONDARY_COLOR : PRIMARY_COLOR; // 1st true, 2nd and 3rd false (3rd don't execute)                
+                const color = i % 3 === 0 ? SECONDARY_COLOR : PRIMARY_COLOR;              
 
                 if(animations[i].length !== 3) {
                     setTimeout(() => {
@@ -214,7 +215,7 @@ class SortingVisualizer extends Component {
                     }, i * ANIMATION_SPEED_MS * 3);    
                 }
 
-            } else { // every 3rd i 
+            } else {
                 const [barOneIdx, newHeight] = animations[i]; 
                 const barOneStyle = arrayBars[barOneIdx].style;
                 
@@ -223,7 +224,11 @@ class SortingVisualizer extends Component {
 
                     if(animations[i].length === 3) {
                         setTimeout(() => {                    
-                            barOneStyle.backgroundColor = SORTED_COLOR;
+                            barOneStyle.backgroundColor = SECONDARY_COLOR;
+
+                            setTimeout(() => {                    
+                                barOneStyle.backgroundColor = SORTED_COLOR;
+                            }, 1); 
                         }, 0);    
                     }
                 }, i * ANIMATION_SPEED_MS * 3);              
@@ -258,7 +263,6 @@ class SortingVisualizer extends Component {
                 const barTwoStyle = arrayBars[barTwoIdx].style;                 
 
                 setTimeout(() => {         
-                    
                     barOneStyle.backgroundColor = SECONDARY_COLOR;                  
                     barTwoStyle.backgroundColor = SECONDARY_COLOR;
 
@@ -293,7 +297,62 @@ class SortingVisualizer extends Component {
                 }, i * ANIMATION_SPEED_MS * 4.75); 
             }            
         }
-      }
+    }
+
+    quickSort() {
+        const animations = Algo.getQuickSortAnimations(this.state[this.componentRef.current].array);
+        const node = this.componentRef.current;
+        const arrayBars = node.getElementsByClassName('array-bar');
+
+        for (let i = 0; i < animations.length; i++) {
+            if(animations[i].length === 2) {
+                const [barOneIdx, barTwoIdx] = animations[i];
+                const barOneStyle = arrayBars[barOneIdx].style;
+                const barTwoStyle = arrayBars[barTwoIdx].style;
+
+                setTimeout(() => {
+                    barOneStyle.backgroundColor = SECONDARY_COLOR;
+                    barTwoStyle.backgroundColor = SECONDARY_COLOR;
+
+                    setTimeout(() => {
+                        barOneStyle.backgroundColor = PRIMARY_COLOR;
+                        barTwoStyle.backgroundColor = PRIMARY_COLOR;
+                    }, 10);
+                }, i * ANIMATION_SPEED_MS * 8.2);
+
+            } else if(animations[i].length === 4) {
+                const [barOneIdx, barOneHeight, barTwoIdx, barTwoHeight] = animations[i]; 
+                const barOneStyle = arrayBars[barOneIdx].style;
+                const barTwoStyle = arrayBars[barTwoIdx].style;                 
+
+                setTimeout(() => {         
+                    barOneStyle.height = `${barOneHeight}px`;
+                    barTwoStyle.height = `${barTwoHeight}px`;
+                    barOneStyle.backgroundColor = SECONDARY_COLOR;     
+                    barTwoStyle.backgroundColor = SECONDARY_COLOR;  
+
+                    setTimeout(() => {
+                        barOneStyle.backgroundColor = PRIMARY_COLOR;     
+                        barTwoStyle.backgroundColor = PRIMARY_COLOR;  
+                    }, 10) 
+
+                    if(i === animations.length - 1) {
+                        for(let i = 0; i < arrayBars.length; i++) {
+                            const barStyle = arrayBars[i].style;
+            
+                            setTimeout(() => {
+                                barStyle.backgroundColor = SECONDARY_COLOR;    
+
+                                setTimeout(() => {
+                                    barStyle.backgroundColor = SORTED_COLOR;     
+                                }, i * 0.05)  
+                            }, i * 8.5) 
+                        }
+                    }   
+                }, i * ANIMATION_SPEED_MS * 8.2); 
+            }          
+        }
+    }
 
     highlightAlgoButton(algorithm) {
         const node = this.componentRef.current;
@@ -349,16 +408,14 @@ class SortingVisualizer extends Component {
         // const bubbleSorted = Algo.getBubbleSortAnimations(this.props.array.slice());
         // const selectionSorted = Algo.getSelectionSortAnimations(this.props.array.slice());
         // const mergeSorted = Algo.getMergeSortAnimations(this.props.array.slice());
-        const heapSorted = Algo.getHeapSortAnimations(this.props.array.slice());
+        // const heapSorted = Algo.getHeapSortAnimations(this.props.array.slice());
+        const quickSorted = Algo.getQuickSortAnimations(this.props.array.slice());
 
         console.log(jsSortedArray)
-        // console.log(bubbleSorted.length)
-        // console.log(selectionSorted.length)
-        // console.log(mergeSorted.length)
-        console.log(heapSorted)
+        console.log(quickSorted)
 
 
-        console.log(arraysAreEqual(jsSortedArray, heapSorted));
+        console.log(arraysAreEqual(jsSortedArray, quickSorted));
       }
 
     render() {
@@ -384,7 +441,7 @@ class SortingVisualizer extends Component {
                         <button className="algo-buttons" id="bubbleSort" onClick={() => this.handleClickAlgoButton(algorithmArray[1])}>BubbleSort</button>
                         <button className="algo-buttons" id="mergeSort" onClick={() => this.handleClickAlgoButton(algorithmArray[2])}>MergeSort</button>
                         <button className="algo-buttons" id="heapSort" onClick={() => this.handleClickAlgoButton(algorithmArray[3])}>HeapSort</button>
-                        <button className="algo-buttons" >QuickSort</button>
+                        <button className="algo-buttons" id="quickSort" onClick={() => this.handleClickAlgoButton(algorithmArray[4])}>QuickSort</button>
                         <button className="algo-buttons" >... Sort</button>
                         <button className="algo-buttons" >... Sort</button>
                     </div>

@@ -1,8 +1,7 @@
 .canvas {
-    border: solid 1px rgb(105, 105, 105, 0.8);
+    border: solid 1px rgb(105, 105, 105, 0.8); 
     background-color: rgb(241, 241, 241);
     display: flex;
-    align-items: center;    
     margin: 1px;
 }
 
@@ -11,8 +10,7 @@
 }
 
 .array-container {
-    justify-content: center;
-    padding: 15px 0 10px;
+    padding: 15px 0 8px;
 }
   
 .array-bar, .static-bar {
@@ -20,19 +18,12 @@
     display: inline-block;
     margin: 0 1px;
 }
-  
-.algo-bar {
-    display: flex;
-    justify-content: center;
-}
 
 .algo-buttons {
     color: #494949;
-    text-decoration: none;
     background: #ffffff;
     padding: 8px;
     border: 1px solid #494949;
-    display: inline-block;
     transition: all 0.4s ease 0s;
 }
 
