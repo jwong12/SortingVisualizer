@@ -10,11 +10,12 @@ function Navbar(props) {
         >
             <h2
                 data-test="title"
-            >Sorting Visualizer X</h2>
+                style={{ color: props.titleColor }}
+            >Sorting Visualizer</h2>
             <button onClick={() => props.startSort()}>Start</button>
             <button onClick={() => props.randomizeAlgo()}>Randomize Algorithms</button>
             <button onClick={() => props.shuffleArray()}>Shuffle</button>
-            <button>Theme</button>
+            <button onClick={() => props.changeTheme()}>Theme</button>
         </div>
     );    
 }

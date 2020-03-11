@@ -6,7 +6,17 @@ const mapStateToProps = (state) => {
     array: state.unsortedArray, 
     startSort: state.startSort,
     randomAlgoClicks: state.randomAlgoClicks,
-    isArraySorted: state.isArraySorted
+    isArraySorted: state.isArraySorted,
+    isDarkTheme: state.isDarkTheme,
+    primaryColor: state.primaryColor,
+    secondaryColor: state.secondaryColor,
+    sortedColor: state.sortedColor,
+    defaultColor: state.defaultColor,
+    backgroundColor: state.backgroundColor,
+    algoButtonBg: state.algoButtonBg,
+    algoButtonColor: state.algoButtonColor,
+    algoButtonSelectedBg: state.algoButtonSelectedBg,
+    algoButtonSelectedColor: state.algoButtonSelectedColor
   }
 };
 

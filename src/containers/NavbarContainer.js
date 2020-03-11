@@ -17,8 +17,19 @@ const mapDispatchToProps = (dispatch) => {
       dispatch({
         type: 'SORTING_VISUALIZER_START_SORT'
       });
+    },
+    changeTheme: () => {
+      dispatch({
+        type: 'SORTING_VISUALIZER_CHANGE_THEME'
+      });
     }
   };
 };
 
-export default connect(null, mapDispatchToProps)(Navbar);
+const mapStateToProps = (state) => {
+  return {
+    titleColor: state.titleColor
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar);

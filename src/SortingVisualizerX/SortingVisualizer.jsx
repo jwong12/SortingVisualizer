@@ -5,10 +5,6 @@ import './SortingVisualizer.css';
 
 const algorithmArray = ['selectionSort', 'bubbleSort', 'mergeSort', 'heapSort', 'quickSort'];
 const ANIMATION_SPEED_MS = 2;
-const PRIMARY_COLOR = 'darkkhaki';
-const SECONDARY_COLOR = 'tomato';
-const SORTED_COLOR = 'deepskyblue';
-const DEFAULT_COLOR = 'grey';
 
 class SortingVisualizer extends Component {
     constructor(props) {
@@ -35,12 +31,11 @@ class SortingVisualizer extends Component {
 
     componentDidUpdate(prevProps, prevState) {
         if(prevProps.array !== this.props.array) {
-            // this.testSortingAlgorithms();
             const node = this.componentRef.current;
             const arrayBars = node.getElementsByClassName('array-bar');
 
             for(let i = 0; i < arrayBars.length; i++) {
-                arrayBars[i].style.backgroundColor = DEFAULT_COLOR;
+                arrayBars[i].style.backgroundColor = this.props.defaultColor;
             }
             const shuffleArray = [...this.props.array];
 
@@ -93,6 +88,10 @@ class SortingVisualizer extends Component {
                     console.error('no algorithm selected')
             }
         }
+
+        if(prevProps.isDarkTheme !== this.props.isDarkTheme) {
+            this.highlightAlgoButton(this.state[this.componentRef.current].algorithm);
+        }
     }
 
     selectionSort = () => {
@@ -112,13 +111,13 @@ class SortingVisualizer extends Component {
 
                     setTimeout(() => {                            
                         const barStyle = arrayBars[barsIndex++].style;
-                        barStyle.backgroundColor = SORTED_COLOR;
+                        barStyle.backgroundColor = this.props.sortedColor;
                     }, ANIMATION_SPEED_MS); 
 
                     if(++n === 119) {
                         setTimeout(() => {
                             const barStyle = arrayBars[n].style;
-                            barStyle.backgroundColor = SORTED_COLOR;
+                            barStyle.backgroundColor = this.props.sortedColor;
                         }, ANIMATION_SPEED_MS);  
                     }     
                 }, i * ANIMATION_SPEED_MS);
@@ -129,12 +128,12 @@ class SortingVisualizer extends Component {
                 const barTwoStyle = arrayBars[barTwoIdx].style;
                 
                 setTimeout(() => {
-                    barOneStyle.backgroundColor = SECONDARY_COLOR;
-                    barTwoStyle.backgroundColor = SECONDARY_COLOR;
+                    barOneStyle.backgroundColor = this.props.secondaryColor;
+                    barTwoStyle.backgroundColor = this.props.secondaryColor;
 
                     setTimeout(() => {
-                        barOneStyle.backgroundColor = PRIMARY_COLOR;
-                        barTwoStyle.backgroundColor = PRIMARY_COLOR;                    
+                        barOneStyle.backgroundColor = this.props.primaryColor;
+                        barTwoStyle.backgroundColor = this.props.primaryColor;                    
                     }, ANIMATION_SPEED_MS);
                 }, i * ANIMATION_SPEED_MS);                
             }
@@ -154,7 +153,7 @@ class SortingVisualizer extends Component {
                 const [barOneIdx, barTwoIdx] = animations[i];
                 const barOneStyle = arrayBars[barOneIdx].style;
                 const barTwoStyle = arrayBars[barTwoIdx].style;
-                const color = i % 3 !== 2 ? SECONDARY_COLOR : PRIMARY_COLOR; 
+                const color = i % 3 !== 2 ? this.props.secondaryColor : this.props.primaryColor; 
                 
                 setTimeout(() => {
                     barOneStyle.backgroundColor = color;
@@ -172,13 +171,13 @@ class SortingVisualizer extends Component {
                     if(barTwoIdx === n || barOneIdx === n) {
                         setTimeout(() => {                            
                             const barStyle = arrayBars[barsIndex--].style;
-                            barStyle.backgroundColor = SORTED_COLOR;
+                            barStyle.backgroundColor = this.props.sortedColor;
                         }, ANIMATION_SPEED_MS);     
 
                         if(--n === 0) {
                             setTimeout(() => {
                                 const barStyle = arrayBars[0].style;
-                                barStyle.backgroundColor = SORTED_COLOR;
+                                barStyle.backgroundColor = this.props.sortedColor;
                             }, ANIMATION_SPEED_MS);   
                         }
                     }                
@@ -199,7 +198,7 @@ class SortingVisualizer extends Component {
                 const [barOneIdx, barTwoIdx] = animations[i];
                 const barOneStyle = arrayBars[barOneIdx].style;
                 const barTwoStyle = arrayBars[barTwoIdx].style;
-                const color = i % 3 === 0 ? SECONDARY_COLOR : PRIMARY_COLOR;              
+                const color = i % 3 === 0 ? this.props.secondaryColor : this.props.primaryColor;              
 
                 if(animations[i].length !== 3) {
                     setTimeout(() => {
@@ -212,7 +211,7 @@ class SortingVisualizer extends Component {
                     const barOneStyle = arrayBars[barOneIdx].style;
 
                     setTimeout(() => {                    
-                        barOneStyle.backgroundColor = SORTED_COLOR;
+                        barOneStyle.backgroundColor = this.props.sortedColor;
                     }, i * ANIMATION_SPEED_MS * 3);    
                 }
 
@@ -225,10 +224,10 @@ class SortingVisualizer extends Component {
 
                     if(animations[i].length === 3) {
                         setTimeout(() => {                    
-                            barOneStyle.backgroundColor = SECONDARY_COLOR;
+                            barOneStyle.backgroundColor = this.props.secondaryColor;
 
                             setTimeout(() => {                    
-                                barOneStyle.backgroundColor = SORTED_COLOR;
+                                barOneStyle.backgroundColor = this.props.sortedColor;
                             }, 1); 
                         }, 0);    
                     }
@@ -249,12 +248,12 @@ class SortingVisualizer extends Component {
                 const barTwoStyle = arrayBars[barTwoIdx].style;
 
                 setTimeout(() => {
-                    barOneStyle.backgroundColor = SECONDARY_COLOR;
-                    barTwoStyle.backgroundColor = SECONDARY_COLOR;
+                    barOneStyle.backgroundColor = this.props.secondaryColor;
+                    barTwoStyle.backgroundColor = this.props.secondaryColor;
 
                     setTimeout(() => {
-                        barOneStyle.backgroundColor = PRIMARY_COLOR;
-                        barTwoStyle.backgroundColor = PRIMARY_COLOR;
+                        barOneStyle.backgroundColor = this.props.primaryColor;
+                        barTwoStyle.backgroundColor = this.props.primaryColor;
                     }, 10);
                 }, i * ANIMATION_SPEED_MS * 4.7);
                 
@@ -264,14 +263,14 @@ class SortingVisualizer extends Component {
                 const barTwoStyle = arrayBars[barTwoIdx].style;                 
 
                 setTimeout(() => {         
-                    barOneStyle.backgroundColor = SECONDARY_COLOR;                  
-                    barTwoStyle.backgroundColor = SECONDARY_COLOR;
+                    barOneStyle.backgroundColor = this.props.secondaryColor;                  
+                    barTwoStyle.backgroundColor = this.props.secondaryColor;
 
                     setTimeout(() => {   
                         barOneStyle.height = `${barOneHeight}px`;
                         barTwoStyle.height = `${barTwoHeight}px`;                      
-                        barOneStyle.backgroundColor = PRIMARY_COLOR;                  
-                        barTwoStyle.backgroundColor = PRIMARY_COLOR;
+                        barOneStyle.backgroundColor = this.props.primaryColor;                  
+                        barTwoStyle.backgroundColor = this.props.primaryColor;
                     }, 10)
                 }, i * ANIMATION_SPEED_MS * 4.7); 
 
@@ -283,16 +282,16 @@ class SortingVisualizer extends Component {
                 setTimeout(() => {         
                     barOneStyle.height = `${barOneHeight}px`;
                     barTwoStyle.height = `${barTwoHeight}px`;
-                    barOneStyle.backgroundColor = SORTED_COLOR;     
-                    barTwoStyle.backgroundColor = SECONDARY_COLOR;  
+                    barOneStyle.backgroundColor = this.props.sortedColor;     
+                    barTwoStyle.backgroundColor = this.props.secondaryColor;  
 
                     setTimeout(() => {
-                        barTwoStyle.backgroundColor = PRIMARY_COLOR;  
+                        barTwoStyle.backgroundColor = this.props.primaryColor;  
                     }, 10) 
 
                     if(i === animations.length - 1) {
                         setTimeout(() => {
-                            arrayBars[0].style.backgroundColor = SORTED_COLOR;   
+                            arrayBars[0].style.backgroundColor = this.props.sortedColor;   
                         }, 10) 
                     }   
                 }, i * ANIMATION_SPEED_MS * 4.75); 
@@ -312,12 +311,12 @@ class SortingVisualizer extends Component {
                 const barTwoStyle = arrayBars[barTwoIdx].style;
 
                 setTimeout(() => {
-                    barOneStyle.backgroundColor = SECONDARY_COLOR;
-                    barTwoStyle.backgroundColor = SECONDARY_COLOR;
+                    barOneStyle.backgroundColor = this.props.secondaryColor;
+                    barTwoStyle.backgroundColor = this.props.secondaryColor;
 
                     setTimeout(() => {
-                        barOneStyle.backgroundColor = PRIMARY_COLOR;
-                        barTwoStyle.backgroundColor = PRIMARY_COLOR;
+                        barOneStyle.backgroundColor = this.props.primaryColor;
+                        barTwoStyle.backgroundColor = this.props.primaryColor;
                     }, 10);
                 }, i * ANIMATION_SPEED_MS * 8.2);
 
@@ -329,12 +328,12 @@ class SortingVisualizer extends Component {
                 setTimeout(() => {         
                     barOneStyle.height = `${barOneHeight}px`;
                     barTwoStyle.height = `${barTwoHeight}px`;
-                    barOneStyle.backgroundColor = SECONDARY_COLOR;     
-                    barTwoStyle.backgroundColor = SECONDARY_COLOR;  
+                    barOneStyle.backgroundColor = this.props.secondaryColor;     
+                    barTwoStyle.backgroundColor = this.props.secondaryColor;  
 
                     setTimeout(() => {
-                        barOneStyle.backgroundColor = PRIMARY_COLOR;     
-                        barTwoStyle.backgroundColor = PRIMARY_COLOR;  
+                        barOneStyle.backgroundColor = this.props.primaryColor;     
+                        barTwoStyle.backgroundColor = this.props.primaryColor;  
                     }, 10) 
 
                     if(i === animations.length - 1) {
@@ -342,10 +341,10 @@ class SortingVisualizer extends Component {
                             const barStyle = arrayBars[i].style;
             
                             setTimeout(() => {
-                                barStyle.backgroundColor = SECONDARY_COLOR;    
+                                barStyle.backgroundColor = this.props.secondaryColor;    
 
                                 setTimeout(() => {
-                                    barStyle.backgroundColor = SORTED_COLOR;     
+                                    barStyle.backgroundColor = this.props.sortedColor;     
                                 }, i * 0.05)  
                             }, i * 8.5) 
                         }
@@ -361,11 +360,11 @@ class SortingVisualizer extends Component {
 
         for(let i = 0; i < buttons.length; i++) {
             if(algorithm === buttons[i].id){
-                buttons[i].style.color = '#ffffff';
-                buttons[i].style.backgroundColor = '#f6b93b';
+                buttons[i].style.color = this.props.algoButtonSelectedColor;
+                buttons[i].style.backgroundColor = this.props.algoButtonSelectedBg;
             } else {
-                buttons[i].style.color = '#494949';
-                buttons[i].style.backgroundColor = '#ffffff';
+                buttons[i].style.color = this.props.algoButtonColor;
+                buttons[i].style.backgroundColor = this.props.algoButtonBg;
             }
         }        
 
@@ -406,16 +405,9 @@ class SortingVisualizer extends Component {
 
     testSortingAlgorithms() {
         const jsSortedArray = this.props.array.sort((a, b) => a - b);
-        // const bubbleSorted = Algo.getBubbleSortAnimations(this.props.array.slice());
-        // const selectionSorted = Algo.getSelectionSortAnimations(this.props.array.slice());
-        // const mergeSorted = Algo.getMergeSortAnimations(this.props.array.slice());
-        // const heapSorted = Algo.getHeapSortAnimations(this.props.array.slice());
         const quickSorted = Algo.getQuickSortAnimations(this.props.array.slice());
-
         console.log(jsSortedArray)
         console.log(quickSorted)
-
-
         console.log(arraysAreEqual(jsSortedArray, quickSorted));
       }
 
@@ -423,6 +415,7 @@ class SortingVisualizer extends Component {
         return (
             <div 
                 className="canvas"
+                style={{ backgroundColor: this.props.backgroundColor }}
                 data-test="sorting-visualizer"
             >
                 <div 
@@ -440,7 +433,7 @@ class SortingVisualizer extends Component {
                                 className="array-bar"
                                 key={i}
                                 style={{ 
-                                    backgroundColor: DEFAULT_COLOR,
+                                    backgroundColor: this.props.defaultColor,
                                     height: `${value}px`
                                 }}
                             ></div>);
@@ -460,8 +453,6 @@ class SortingVisualizer extends Component {
                         <button className="algo-buttons" id="mergeSort" onClick={() => this.handleClickAlgoButton(algorithmArray[2])}>MergeSort</button>
                         <button className="algo-buttons" id="heapSort" onClick={() => this.handleClickAlgoButton(algorithmArray[3])}>HeapSort</button>
                         <button className="algo-buttons" id="quickSort" onClick={() => this.handleClickAlgoButton(algorithmArray[4])}>QuickSort</button>
-                        <button className="algo-buttons" >... Sort</button>
-                        <button className="algo-buttons" >... Sort</button>
                     </div>
                 </div>
             </div>

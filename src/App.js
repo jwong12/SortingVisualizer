@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { Component } from 'react';
 import SortingVisualizerContainer from './containers/SortingVisualizerContainer';
 import NavbarContainer from './containers/NavbarContainer';
 import './App.css';
 
-function App() {
+function App(props) {
   return (
     <div 
       className="App"
       data-test="app-component"
+      style={{ backgroundColor: this.props.appBackgroundColor }}
     >
       <NavbarContainer />
       <div 

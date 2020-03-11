@@ -1,6 +1,5 @@
 .canvas {
     border: solid 1px rgb(105, 105, 105, 0.8); 
-    background-color: rgb(241, 241, 241);
     display: flex;
     margin: 1px;
 }
@@ -20,16 +19,12 @@
 }
 
 .algo-buttons {
-    color: #494949;
-    background: #ffffff;
     padding: 8px;
     border: 1px solid #494949;
     transition: all 0.4s ease 0s;
 }
 
 .algo-buttons:hover {
-    color: #ffffff;
-    background: #f6b93b;
     border: 1px solid #494949;
     transition: all 0.4s ease 0s;
 }
