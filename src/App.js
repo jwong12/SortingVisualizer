@@ -1,6 +1,7 @@
 import React from 'react';
 import SortingVisualizerContainer from './containers/SortingVisualizerContainer';
 import NavbarContainer from './containers/NavbarContainer';
+import PropTypes from 'prop-types';
 import './App.css';
 
 function App(props) {
@@ -23,5 +24,9 @@ function App(props) {
     </div>
   );
 }
+
+App.propTypes = {
+  appBackgroundColor: PropTypes.string.isRequired
+};
 
 export default App;

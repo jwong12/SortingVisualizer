@@ -477,20 +477,20 @@ function arraysAreEqual(arrayOne, arrayTwo) {
 }
 
 SortingVisualizer.propTypes = {
-    array: PropTypes.array,
-    startSort: PropTypes.bool,
-    randomAlgoClicks: PropTypes.number,
-    isArraySorted: PropTypes.bool,
-    isDarkTheme: PropTypes.bool,
-    primaryColor: PropTypes.string,
-    secondaryColor: PropTypes.string,
-    sortedColor: PropTypes.string,
-    defaultColor: PropTypes.string,
-    backgroundColor: PropTypes.string,
-    algoButtonBg: PropTypes.string,
-    algoButtonColor: PropTypes.string,
-    algoButtonSelectedBg: PropTypes.string,
-    algoButtonSelectedColor: PropTypes.string
+    array: PropTypes.array.isRequired,
+    startSort: PropTypes.bool.isRequired,
+    randomAlgoClicks: PropTypes.number.isRequired,
+    isArraySorted: PropTypes.bool.isRequired,
+    isDarkTheme: PropTypes.bool.isRequired,
+    primaryColor: PropTypes.string.isRequired,
+    secondaryColor: PropTypes.string.isRequired,
+    sortedColor: PropTypes.string.isRequired,
+    defaultColor: PropTypes.string.isRequired,
+    backgroundColor: PropTypes.string.isRequired,
+    algoButtonBg: PropTypes.string.isRequired,
+    algoButtonColor: PropTypes.string.isRequired,
+    algoButtonSelectedBg: PropTypes.string.isRequired,
+    algoButtonSelectedColor: PropTypes.string.isRequired,
 };
 
 export default SortingVisualizer;

@@ -11,6 +11,7 @@ const initialState = {
   sortedColor: '#6ad4f7',
   defaultColor: '#b0b0b0',
   backgroundColor: 'rgb(241, 241, 241)',
+  appBackgroundColor: 'white',
   algoButtonBg: '#ffffff',
   algoButtonColor: '#494949',
   algoButtonSelectedBg: 'rgb(65, 146, 247)',
