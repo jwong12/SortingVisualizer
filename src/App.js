@@ -26,7 +26,7 @@ function App(props) {
 }
 
 App.propTypes = {
-  appBackgroundColor: PropTypes.string.isRequired
+  appBackgroundColor: PropTypes.string
 };
 
 export default App;

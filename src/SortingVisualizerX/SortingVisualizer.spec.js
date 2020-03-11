@@ -16,9 +16,21 @@ describe('SortingVisualizer Component', () => {
 				array: [60,37,6,157], 
                 startSort: true,
                 randomAlgoClicks: 12,
-                isArraySorted: false
+                isArraySorted: false,
+                isDarkTheme: false,
+                primaryColor: 'darkkhaki',
+                secondaryColor: 'tomato',
+                sortedColor: '#6ad4f7',
+                defaultColor: '#b0b0b0',
+                backgroundColor: 'rgb(241, 241, 241)',
+                appBackgroundColor: 'white',
+                algoButtonBg: '#ffffff',
+                algoButtonColor: '#494949',
+                algoButtonSelectedBg: 'rgb(65, 146, 247)',
+                algoButtonSelectedColor: '#ffffff',
+                titleColor: 'rgb(101, 196, 226)'
 			};
-			const propsErr = checkProps(SortingVisualizer, expectedProps);
+            const propsErr = checkProps(SortingVisualizer, expectedProps);
             expect(propsErr).toBeUndefined();
 		});
 	});

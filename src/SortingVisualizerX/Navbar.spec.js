@@ -25,6 +25,8 @@ describe('Navbar Component', () => {
 				shuffleArray: () => {},
 				randomizeAlgo: () => {},
 				startSort: () => {},
+				changeTheme: () => {},
+				titleColor: 'rgb(101, 196, 226)'
 			};
 			const propsErr = checkProps(Navbar, expectedProps);
 			expect(propsErr).toBeUndefined();

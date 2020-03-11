@@ -24,7 +24,8 @@ Navbar.propTypes = {
     startSort: PropTypes.func,
     randomizeAlgo: PropTypes.func,
     shuffleArray: PropTypes.func,
-    titleColor: PropTypes.string.isRequired
+    changeTheme: PropTypes.func,
+    titleColor: PropTypes.string
 };
 
 export default Navbar;
