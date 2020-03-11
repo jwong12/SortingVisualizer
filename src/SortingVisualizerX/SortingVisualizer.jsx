@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import * as Algo from '../sortingAlgorithms/sortingAlgorithms';
 import './SortingVisualizer.css';
 
@@ -420,9 +421,19 @@ class SortingVisualizer extends Component {
 
     render() {
         return (
-            <div className="canvas">
-                <div className="canvas-content" ref={this.componentRef}>
-                    <div className="array-container">
+            <div 
+                className="canvas"
+                data-test="sorting-visualizer"
+            >
+                <div 
+                    className="canvas-content" 
+                    data-test="content"
+                    ref={this.componentRef}
+                >
+                    <div 
+                        className="array-container"
+                        data-test="container"
+                    >
                         {this.state[this.componentRef.current].array.map((value,i) => {
                             return (
                             <div
@@ -434,9 +445,16 @@ class SortingVisualizer extends Component {
                                 }}
                             ></div>);
                         })}
-                        <div className="static-bar" style={{ height: `330px` }}></div>
+                        <div 
+                            className="static-bar" 
+                            data-test="static"
+                            style={{ height: `330px` }}
+                        ></div>
                     </div>
-                    <div className="algo-bar">
+                    <div 
+                        className="algo-bar"
+                        data-test="algorithm-bar"
+                    >
                         <button className="algo-buttons" id="selectionSort" onClick={() => this.handleClickAlgoButton(algorithmArray[0])}>SelectionSort</button>
                         <button className="algo-buttons" id="bubbleSort" onClick={() => this.handleClickAlgoButton(algorithmArray[1])}>BubbleSort</button>
                         <button className="algo-buttons" id="mergeSort" onClick={() => this.handleClickAlgoButton(algorithmArray[2])}>MergeSort</button>
@@ -464,5 +482,12 @@ function arraysAreEqual(arrayOne, arrayTwo) {
     }
     return true;
 }
+
+SortingVisualizer.propTypes = {
+    array: PropTypes.array,
+    startSort: PropTypes.bool,
+    randomAlgoClicks: PropTypes.number,
+    isArraySorted: PropTypes.bool
+};
 
 export default SortingVisualizer;
