@@ -4,7 +4,18 @@ const initialState = {
   unsortedArray: shuffleArray(),
   startSort: false,
   isArraySorted: false,
-  randomAlgoClicks: 0
+  randomAlgoClicks: 0,
+  isDarkTheme: false,
+  primaryColor: 'darkkhaki',
+  secondaryColor: 'tomato',
+  sortedColor: '#6ad4f7',
+  defaultColor: '#b0b0b0',
+  backgroundColor: 'rgb(241, 241, 241)',
+  algoButtonBg: '#ffffff',
+  algoButtonColor: '#494949',
+  algoButtonSelectedBg: 'rgb(65, 146, 247)',
+  algoButtonSelectedColor: '#ffffff',
+  titleColor: 'rgb(101, 196, 226)'
 };
 
 const sortingVisualizerReducer = (state = initialState, action) => {
@@ -24,7 +35,23 @@ const sortingVisualizerReducer = (state = initialState, action) => {
         return Object.assign({}, state, {
           startSort: true,
           isArraySorted: true
-        })      
+        })   
+      case 'SORTING_VISUALIZER_CHANGE_THEME':
+        console.log('changed themes');
+        return Object.assign({}, state, {
+          isDarkTheme: !state.isDarkTheme,
+          primaryColor: !state.isDarkTheme ? '#ab9d78' : 'darkkhaki',
+          secondaryColor: !state.isDarkTheme ? '#822c2c' : 'tomato',
+          sortedColor: !state.isDarkTheme ? '#2f787d' : '#6ad4f7', 
+          defaultColor: !state.isDarkTheme ? '#71868f' : '#b0b0b0',
+          backgroundColor: !state.isDarkTheme ? 'rgb(45, 45, 45)' : 'rgb(241, 241, 241)',
+          appBackgroundColor: !state.isDarkTheme ? '#3a3a3a' : 'white',
+          algoButtonBg: !state.isDarkTheme ? '#8a8a8a' : '#ffffff',
+          algoButtonColor: !state.isDarkTheme ? '#212121' : '#494949',
+          algoButtonSelectedBg: !state.isDarkTheme ? 'rgb(5, 105, 154)' : 'rgb(65, 146, 247)',
+          algoButtonSelectedColor: !state.isDarkTheme ? 'rgb(206, 206, 206)' : '#ffffff',
+          titleColor: !state.isDarkTheme ? 'rgb(83, 147, 167)' : 'rgb(101, 196, 226)',
+        })    
       default: 
         return state;
     }
