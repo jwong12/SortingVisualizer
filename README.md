@@ -1,7 +1,7 @@
 # Sorting Visualizer
 
 I created this React application to compare the visualization of different sorting algorithms. 
-I hope you enjoy playing with my app as much as I enjoyed writing it.
+I hope you enjoy playing with this app as much as I enjoyed writing it.
 
 The list of algorithms implemented:
 * Selection sort
