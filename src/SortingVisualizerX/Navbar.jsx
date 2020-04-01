@@ -13,7 +13,7 @@ function Navbar(props) {
                 style={{ color: props.titleColor }}
             >Sorting Visualizer</h2>
             <button onClick={() => props.startSort()}>Start</button>
-            <button onClick={() => props.randomizeAlgo()}>Randomize Algorithms</button>
+            <button onClick={() => props.randomizeAlgo()}>Randomize</button>
             <button onClick={() => props.shuffleArray()}>Shuffle</button>
             <button onClick={() => props.changeTheme()}>Theme</button>
         </div>

@@ -7,19 +7,19 @@
 
 h2 {
     margin:0;
-    line-height: 40px;
+    line-height: 41px;
 }
 
 .nav-bar button {
     -webkit-appearance: none;
-    margin: 0 4px;
-	background: -webkit-gradient(to right, #a2ccb6 0%, #fceeb5 50%, #ee786e 100%);
-	background: linear-gradient(to right, #a2ccb6 0%, #fceeb5 50%, #ee786e 100%);
+    margin: 0 8px;
+	background: -webkit-gradient(to right, #59ab80 0,#ded093 50%,#c56161);
+	background: linear-gradient(90deg,#59ab80 0,#ded093 50%,#c56161);
 	background-size: 500%;
 	border: none;
 	border-radius: 5rem;
 	box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-    color: rgb(95, 95, 95);
+    color: #5a420b;
 	cursor: pointer;
 	font: 0.8em Raleway, sans-serif;
 	-webkit-font-smoothing: antialiased;
@@ -31,8 +31,8 @@ h2 {
 	-moz-user-select: none;
 	-ms-user-select: none;
 	user-select: none;
-    min-width: 5rem;
-    padding: 8px;
+    min-width: 4rem;
+    padding: 6px;
     font-weight: 600;
 }
 
