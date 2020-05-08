@@ -14,8 +14,8 @@ const initialState = {
   appBackgroundColor: 'white',
   algoButtonBg: '#ffffff',
   algoButtonColor: '#494949',
-  algoButtonSelectedBg: 'rgb(65, 146, 247)',
-  algoButtonSelectedColor: '#ffffff',
+  algoButtonSelectedBg: 'rgb(73, 151, 249)',
+  algoButtonSelectedColor: 'rgb(247, 247, 247)',
   titleColor: 'rgb(101, 196, 226)'
 };
 
@@ -48,8 +48,8 @@ const sortingVisualizerReducer = (state = initialState, action) => {
           appBackgroundColor: !state.isDarkTheme ? '#3a3a3a' : 'white',
           algoButtonBg: !state.isDarkTheme ? '#8a8a8a' : '#ffffff',
           algoButtonColor: !state.isDarkTheme ? '#212121' : '#494949',
-          algoButtonSelectedBg: !state.isDarkTheme ? 'rgb(5, 105, 154)' : 'rgb(65, 146, 247)',
-          algoButtonSelectedColor: !state.isDarkTheme ? 'rgb(206, 206, 206)' : '#ffffff',
+          algoButtonSelectedBg: !state.isDarkTheme ? 'rgb(5, 105, 154)' : 'rgb(73, 151, 249)',
+          algoButtonSelectedColor: !state.isDarkTheme ? 'rgb(206, 206, 206)' : 'rgb(247, 247, 247)',
           titleColor: !state.isDarkTheme ? 'rgb(83, 147, 167)' : 'rgb(101, 196, 226)',
         })    
       default: 
