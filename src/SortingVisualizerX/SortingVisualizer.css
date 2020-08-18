@@ -9,7 +9,7 @@
 }
 
 .array-container {
-    padding: 15px 0 8px;
+    padding: 10px 0 8px;
 }
   
 .array-bar, .static-bar {
@@ -22,9 +22,20 @@
     padding: 8px;
     border: 1px solid #494949;
     transition: all 0.4s ease 0s;
+    cursor: pointer;
 }
 
 .algo-buttons:hover {
     border: 1px solid #494949;
     transition: all 0.4s ease 0s;
+}
+
+@media only screen and (max-width: 1316px) {
+    .array-container {
+        padding: 20px 0 10px;
+    }
+
+    .canvas {
+        padding-bottom: 15px;
+    }
 }
