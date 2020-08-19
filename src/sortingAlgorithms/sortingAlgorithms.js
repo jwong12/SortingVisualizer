@@ -226,3 +226,40 @@ function swap(items, leftIndex, rightIndex){
     items[rightIndex] = temp;
 }
   
+export function getCountingSortAnimations(array) {
+    const animations = [];
+    const reserveArray = [];
+    let max = array[0], min = array[0];
+
+    for(let i = 0; i < array.length; i++) {
+        if(array[i] > max) { 
+            max = array[i];
+        }
+
+        if(array[i] < min) {
+            min = array[i];
+        }
+    }
+
+    const range = max - min + 1;
+
+    for(let j = 0; j < range; j++) {
+        reserveArray[j] = 0;
+    }
+
+    for(let i = 0; i < array.length; i++) {
+        reserveArray[array[i] - min]++;
+    }
+
+    for(let j = 1; j < range; j++) {
+        reserveArray[j] = reserveArray[j-1] + reserveArray[j];
+    }
+
+    for(let i = array.length - 1; i >= 0; i--) {
+        let j = array[i] - min;
+        animations.push([reserveArray[j] - 1, i]);
+        reserveArray[j]--;
+    }
+
+    return animations;
+};

@@ -84,6 +84,9 @@ class SortingVisualizer extends Component {
                 case algorithmArray[4]:
                     this.quickSort();
                     break;
+                case algorithmArray[5]:
+                    this.countingSort();
+                    break;
                 default:
                     console.error('no algorithm selected')
             }
@@ -183,12 +186,12 @@ class SortingVisualizer extends Component {
                             }, ANIMATION_SPEED_MS);   
                         }
                     }                
-                }, i * ANIMATION_SPEED_MS/3);                
+                }, i * ANIMATION_SPEED_MS / 3);                
             }
         }
     }
 
-    mergeSort() {
+    mergeSort = () => {
         const animations = Algo.getMergeSortAnimations(this.state[this.componentRef.current].array);
         const node = this.componentRef.current;
         const arrayBars = node.getElementsByClassName('array-bar');
@@ -238,7 +241,7 @@ class SortingVisualizer extends Component {
         }
     }
 
-    heapSort() {
+    heapSort = () => {
         const animations = Algo.getHeapSortAnimations(this.state[this.componentRef.current].array);
         const node = this.componentRef.current;
         const arrayBars = node.getElementsByClassName('array-bar');
@@ -301,7 +304,7 @@ class SortingVisualizer extends Component {
         }
     }
 
-    quickSort() {
+    quickSort = () => {
         const animations = Algo.getQuickSortAnimations(this.state[this.componentRef.current].array);
         const node = this.componentRef.current;
         const arrayBars = node.getElementsByClassName('array-bar');
@@ -354,6 +357,44 @@ class SortingVisualizer extends Component {
                 }, i * ANIMATION_SPEED_MS * 8.2); 
             }          
         }
+    }
+
+    countingSort = () => {
+        const currentArray = this.state[this.componentRef.current].array;
+        const animations = Algo.getCountingSortAnimations(currentArray);
+        const node = this.componentRef.current;
+        const arrayBars = node.getElementsByClassName('array-bar');
+
+        for(let i = 0; i < currentArray.length; i++) {
+            const barStyle = arrayBars[i].style;
+
+            setTimeout(() => {
+                barStyle.backgroundColor = this.props.secondaryColor;
+
+                setTimeout(() => {
+                    barStyle.backgroundColor = this.props.primaryColor;
+                
+                }, (i + 15) * ANIMATION_SPEED_MS / 4);
+            }, (i + 15) * ANIMATION_SPEED_MS * 25);
+        }
+
+        setTimeout(() => {
+            for(let i = 0; i < animations.length; i++) {
+                const barOneIdx = animations[i][0];
+                const barTwoIdx = animations[i][1];
+                const barOneStyle = arrayBars[barOneIdx].style;
+
+                setTimeout(() => {
+                    barOneStyle.backgroundColor = this.props.secondaryColor;
+                    barOneStyle.height = `${currentArray[barTwoIdx]}px`;
+                    
+                    setTimeout(() => {
+                        barOneStyle.backgroundColor = this.props.sortedColor;
+
+                    }, (i + 15) * ANIMATION_SPEED_MS / 3);
+                }, (i + 15) * ANIMATION_SPEED_MS * 30); 
+            }
+        }, 6700);
     }
 
     highlightAlgoButton(algorithm) {
