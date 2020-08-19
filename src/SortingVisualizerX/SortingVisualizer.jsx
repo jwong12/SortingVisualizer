@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import * as Algo from '../sortingAlgorithms/sortingAlgorithms';
 import './SortingVisualizer.css';
 
-const algorithmArray = ['selectionSort', 'bubbleSort', 'mergeSort', 'heapSort', 'quickSort'];
+const algorithmArray = ['selectionSort', 'bubbleSort', 'mergeSort', 'heapSort', 'quickSort', 'countingSort'];
 const ANIMATION_SPEED_MS = 2;
 
 class SortingVisualizer extends Component {
@@ -455,6 +455,7 @@ class SortingVisualizer extends Component {
                         <button className="algo-buttons" id="mergeSort" onClick={() => this.handleClickAlgoButton(algorithmArray[2])}>MergeSort</button>
                         <button className="algo-buttons" id="heapSort" onClick={() => this.handleClickAlgoButton(algorithmArray[3])}>HeapSort</button>
                         <button className="algo-buttons" id="quickSort" onClick={() => this.handleClickAlgoButton(algorithmArray[4])}>QuickSort</button>
+                        <button className="algo-buttons" id="countingSort" onClick={() => this.handleClickAlgoButton(algorithmArray[5])}>CountingSort</button>
                     </div>
                 </div>
             </div>
