@@ -42,11 +42,12 @@
 
 @media only screen and (max-width: 664px) {
     .array-bar, .static-bar {
-        width: 1px; 
+        width: 2px;
+        margin: 0;
     }
 
     .algo-buttons {
-        padding: 7px 6px;
-        font-size: 12px;
+        padding: 6px 3px;
+        font-size: 10px;
     }
 }
