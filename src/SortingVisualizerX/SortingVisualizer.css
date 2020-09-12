@@ -39,3 +39,14 @@
         padding-bottom: 15px;
     }
 }
+
+@media only screen and (max-width: 664px) {
+    .array-bar, .static-bar {
+        width: 1px; 
+    }
+
+    .algo-buttons {
+        padding: 7px 6px;
+        font-size: 12px;
+    }
+}

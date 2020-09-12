@@ -13,3 +13,9 @@
   background-color: #282c34;
 }
 
+@media only screen and (max-width: 664px) {
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(370px, 1fr));
+  }
+}
+
