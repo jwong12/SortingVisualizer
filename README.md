@@ -1,7 +1,7 @@
 # Sorting Visualizer
 
 I created this React application to compare the visualization of different sorting algorithms. 
-I hope you enjoy playing with this app as much as I enjoyed writing it.
+I hope you enjoy playing with this app as much as I enjoyed building it.
 
 The list of algorithms implemented:
 * Selection sort
@@ -9,6 +9,9 @@ The list of algorithms implemented:
 * Merge sort
 * Heapsort
 * Quicksort
+* Distribution Counting Sort
+
+Project Link: [Sorting Visualizer](https://jwong12.github.io/SortingVisualizer)
 
 ## Author
 
