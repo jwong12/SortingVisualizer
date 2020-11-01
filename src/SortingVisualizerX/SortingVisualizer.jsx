@@ -30,7 +30,7 @@ class SortingVisualizer extends Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if(prevProps.array !== this.props.array) {
+        if (prevProps.array !== this.props.array) {
             const node = this.componentRef.current;
             const arrayBars = node.getElementsByClassName('array-bar');
 
@@ -47,7 +47,7 @@ class SortingVisualizer extends Component {
             });   
         }
 
-        if(prevProps.randomAlgoClicks !== this.props.randomAlgoClicks) {
+        if (prevProps.randomAlgoClicks !== this.props.randomAlgoClicks) {
             const algorithm = this.highlightAlgoButton(algorithmArray[randomIntFromInterval(0,algorithmArray.length-1)]);
 
             if(this.props.isArraySorted) {
@@ -67,7 +67,7 @@ class SortingVisualizer extends Component {
             }            
         }
 
-        if(prevProps.startSort !== this.props.startSort && this.props.startSort) {
+        if (prevProps.startSort !== this.props.startSort && this.props.startSort) {
             switch(this.state[this.componentRef.current].algorithm) {
                 case algorithmArray[0]:
                     this.selectionSort();
@@ -92,8 +92,12 @@ class SortingVisualizer extends Component {
             }
         }
 
-        if(prevProps.isDarkTheme !== this.props.isDarkTheme) {
+        if (prevProps.isDarkTheme !== this.props.isDarkTheme) {
             this.highlightAlgoButton(this.state[this.componentRef.current].algorithm);
+        }
+
+        if (prevProps.arraysSorted !== this.props.arraysSorted && this.props.arraysSorted === 4) {
+            this.props.finishSorting();
         }
     }
 
@@ -102,7 +106,7 @@ class SortingVisualizer extends Component {
         const node = this.componentRef.current;
         const arrayBars = node.getElementsByClassName('array-bar');
         
-        for(let i = 0; i < animations.length; i++) {
+        for (let i = 0; i < animations.length; i++) {
             if(animations[i].length === 4) {
                 setTimeout(() => {
                     const [barOneIdx, barOneHeight, barTwoIdx, barTwoHeight] = animations[i];
@@ -123,6 +127,7 @@ class SortingVisualizer extends Component {
                         setTimeout(() => {
                             const barStyle = arrayBars[this.props.array.length-1].style;
                             barStyle.backgroundColor = this.props.sortedColor;
+                            this.props.incrementArraySortedCount();
                         }, ANIMATION_SPEED_MS);  
                     }     
                 }, i * ANIMATION_SPEED_MS);
@@ -183,6 +188,7 @@ class SortingVisualizer extends Component {
                             setTimeout(() => {
                                 const barStyle = arrayBars[0].style;
                                 barStyle.backgroundColor = this.props.sortedColor;
+                                this.props.incrementArraySortedCount();
                             }, ANIMATION_SPEED_MS);   
                         }
                     }                
@@ -239,6 +245,8 @@ class SortingVisualizer extends Component {
                 }, i * ANIMATION_SPEED_MS * 3);              
             }
         }
+
+        setTimeout(() => this.props.incrementArraySortedCount(), 14500);
     }
 
     heapSort = () => {
@@ -297,7 +305,8 @@ class SortingVisualizer extends Component {
                     if(i === animations.length - 1) {
                         setTimeout(() => {
                             arrayBars[0].style.backgroundColor = this.props.sortedColor;   
-                        }, 10) 
+                            this.props.incrementArraySortedCount();
+                        }, 10);
                     }   
                 }, i * ANIMATION_SPEED_MS * 4.75); 
             }            
@@ -353,6 +362,8 @@ class SortingVisualizer extends Component {
                                 }, i * 0.05)  
                             }, i * 8.5) 
                         }
+
+                        setTimeout(() => this.props.incrementArraySortedCount(), 1500);
                     }   
                 }, i * ANIMATION_SPEED_MS * 8.2); 
             }          
@@ -395,6 +406,8 @@ class SortingVisualizer extends Component {
                 }, (i + 15) * ANIMATION_SPEED_MS * 30); 
             }
         }, 6700);
+
+        setTimeout(() => this.props.incrementArraySortedCount(), 14500);
     }
 
     highlightAlgoButton(algorithm) {
@@ -452,7 +465,7 @@ class SortingVisualizer extends Component {
         console.log(jsSortedArray)
         console.log(quickSorted)
         console.log(arraysAreEqual(jsSortedArray, quickSorted));
-      }
+    }
 
     render() {
         return (
@@ -472,14 +485,15 @@ class SortingVisualizer extends Component {
                     >
                         {this.state[this.componentRef.current].array.map((value,i) => {
                             return (
-                            <div
-                                className="array-bar"
-                                key={i}
-                                style={{ 
-                                    backgroundColor: this.props.defaultColor,
-                                    height: `${value}px`
-                                }}
-                            ></div>);
+                                <div
+                                    className="array-bar"
+                                    key={i}
+                                    style={{ 
+                                        backgroundColor: this.props.defaultColor,
+                                        height: `${value}px`
+                                    }}
+                                ></div>
+                            );
                         })}
                         <div 
                             className="static-bar" 
@@ -510,10 +524,11 @@ function randomIntFromInterval(min, max) {
 
 function arraysAreEqual(arrayOne, arrayTwo) {
     if (arrayOne.length !== arrayTwo.length) return false;
+    
     for (let i = 0; i < arrayOne.length; i++) {
-      if (arrayOne[i] !== arrayTwo[i]) {
-        return false;
-      }
+        if (arrayOne[i] !== arrayTwo[i]) {
+            return false;
+        }
     }
     return true;
 }
@@ -532,7 +547,8 @@ SortingVisualizer.propTypes = {
     algoButtonBg: PropTypes.string,
     algoButtonColor: PropTypes.string,
     algoButtonSelectedBg: PropTypes.string,
-    algoButtonSelectedColor: PropTypes.string
+    algoButtonSelectedColor: PropTypes.string,
+    arraysSorted: PropTypes.number
 };
 
 export default SortingVisualizer;

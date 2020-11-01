@@ -16,16 +16,27 @@ const initialState = {
   algoButtonColor: '#494949',
   algoButtonSelectedBg: 'rgb(73, 151, 249)',
   algoButtonSelectedColor: 'rgb(247, 247, 247)',
-  titleColor: 'rgb(101, 196, 226)'
+  arraysSorted: 0,
+  finishSorting: true,
+  titleColor: 'rgb(101, 196, 226)',
 };
 
 const sortingVisualizerReducer = (state = initialState, action) => {
     switch(action.type) {
+      case 'NAV_BAR_FINISH_SORTING':
+        return Object.assign({}, state, {
+          finishSorting: true,
+          arraysSorted: 0
+        });
+      case 'SORTING_VISUALIZER_ARRAY_SORTED':
+        return Object.assign({}, state, {
+          arraysSorted: state.arraysSorted+1
+        }); 
       case 'SORTING_VISUALIZER_SHUFFLE_ARRAY': 
         return Object.assign({}, state, {
           unsortedArray: shuffleArray(),
           startSort: false,
-          isArraySorted: false
+          isArraySorted: false,
         });
       case 'SORTING_VISUALIZER_RANDOMIZE_ALGO': 
         return Object.assign({}, state, {
@@ -35,7 +46,8 @@ const sortingVisualizerReducer = (state = initialState, action) => {
       case 'SORTING_VISUALIZER_START_SORT':
         return Object.assign({}, state, {
           startSort: true,
-          isArraySorted: true
+          isArraySorted: true,
+          finishSorting: false
         })   
       case 'SORTING_VISUALIZER_CHANGE_THEME':
         return Object.assign({}, state, {

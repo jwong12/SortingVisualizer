@@ -28,7 +28,9 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state) => {
   return {
-    titleColor: state.titleColor
+    titleColor: state.titleColor,
+    finishSorting: state.finishSorting,
+    isArraySorted: state.isArraySorted
   }
 }
 
