@@ -97,34 +97,43 @@ class SortingVisualizer extends Component {
         }
 
         if (prevProps.finishSortingArray !== this.props.finishSortingArray && !this.props.finishSortingArray) {
-            const buttons = this.componentRef.current.getElementsByClassName('algo-buttons');
+            setTimeout(() => this.modifyButtonsWhileAnimationIsRunning(), 0);
 
-            for(let i = 0; i < buttons.length; i++) {
-                if(this.state[this.componentRef.current].algorithm === buttons[i].id){
-                    buttons[i].style.boxShadow = '0px 1px 5px 2px rgba(0,0,0,0.4)';
-                    buttons[i].style.zIndex = 99;
-                } else {
-                    buttons[i].style.filter = 'blur(2px)';
-                    buttons[i].style.cursor = 'default';
-                }
-            }            
-        } else {
-            const buttons = this.componentRef.current.getElementsByClassName('algo-buttons');
-
-            for(let i = 0; i < buttons.length; i++) {
-                if(this.state[this.componentRef.current].algorithm === buttons[i].id){
-                    buttons[i].style.boxShadow = 'none';
-                    buttons[i].style.zIndex = 0;
-                } else {
-                    buttons[i].style.filter = 'none';
-                    buttons[i].style.cursor = 'pointer';
-                }
-            }
+        } else if (prevProps.finishSortingArray !== this.props.finishSortingArray && this.props.finishSortingArray) {
+            setTimeout(() => this.modifyButtonsWhileAnimationIsSorted(), 0);
         }
 
         if (prevProps.arraysSorted !== this.props.arraysSorted && this.props.arraysSorted === 4) {
             this.props.finishSorting();
         }        
+    }
+
+    modifyButtonsWhileAnimationIsRunning() {
+        const buttons = this.componentRef.current.getElementsByClassName('algo-buttons');
+
+        for(let i = 0; i < buttons.length; i++) {
+            if(this.state[this.componentRef.current].algorithm === buttons[i].id){
+                setTimeout(() => buttons[i].style.animation = 'box-shadow-fade-in 300ms forwards', 300);
+
+            } else {
+                setTimeout(() => buttons[i].style.animation = 'blur-fade-in 300ms forwards', 0);
+                buttons[i].style.cursor = 'default';
+            }
+        } 
+    }
+
+    modifyButtonsWhileAnimationIsSorted() {
+        const buttons = this.componentRef.current.getElementsByClassName('algo-buttons');
+
+        for(let i = 0; i < buttons.length; i++) {
+            if(this.state[this.componentRef.current].algorithm === buttons[i].id){
+                setTimeout(() => buttons[i].style.animation = 'box-shadow-fade-out 300ms forwards', 500);
+
+            } else {
+                setTimeout(() => buttons[i].style.animation = 'blur-fade-out 300ms forwards', 800);
+                buttons[i].style.cursor = 'pointer'
+            }
+        }
     }
 
     selectionSort = () => {
@@ -153,7 +162,7 @@ class SortingVisualizer extends Component {
                         setTimeout(() => {
                             const barStyle = arrayBars[this.props.array.length-1].style;
                             barStyle.backgroundColor = this.props.sortedColor;
-                            setTimeout(() => this.props.incrementArraySortedCount(), 1000);
+                            setTimeout(() => this.props.incrementArraySortedCount(), 500);
                         }, ANIMATION_SPEED_MS);  
                     }     
                 }, i * ANIMATION_SPEED_MS);
@@ -214,7 +223,7 @@ class SortingVisualizer extends Component {
                             setTimeout(() => {
                                 const barStyle = arrayBars[0].style;
                                 barStyle.backgroundColor = this.props.sortedColor;
-                                setTimeout(() => this.props.incrementArraySortedCount(), 1500);
+                                setTimeout(() => this.props.incrementArraySortedCount(), 1000);
                             }, ANIMATION_SPEED_MS);   
                         }
                     }                
@@ -272,7 +281,7 @@ class SortingVisualizer extends Component {
             }
         }
 
-        setTimeout(() => this.props.incrementArraySortedCount(), 15000);
+        setTimeout(() => this.props.incrementArraySortedCount(), 14500);
     }
 
     heapSort = () => {
@@ -331,7 +340,7 @@ class SortingVisualizer extends Component {
                     if(i === animations.length - 1) {
                         setTimeout(() => {
                             arrayBars[0].style.backgroundColor = this.props.sortedColor;   
-                            setTimeout(() => this.props.incrementArraySortedCount(), 0);
+                            setTimeout(() => this.props.incrementArraySortedCount(), 500);
                         }, 10);
                     }   
                 }, i * ANIMATION_SPEED_MS * 4.75); 
@@ -389,7 +398,7 @@ class SortingVisualizer extends Component {
                             }, i * 8.5) 
                         }
 
-                        setTimeout(() => this.props.incrementArraySortedCount(), 1500);
+                        setTimeout(() => this.props.incrementArraySortedCount(), 1000);
                     }   
                 }, i * ANIMATION_SPEED_MS * 8.2); 
             }          
@@ -433,7 +442,7 @@ class SortingVisualizer extends Component {
             }
         }, 6700);
 
-        setTimeout(() => this.props.incrementArraySortedCount(), 15000);
+        setTimeout(() => this.props.incrementArraySortedCount(), 14500);
     }
 
     highlightAlgoButton(algorithm) {
@@ -473,6 +482,12 @@ class SortingVisualizer extends Component {
             }
         }
     }
+
+    // handleMouseOverAlgoButton = (algo) => {
+    //     if (this.props.finishSortingArray) {
+            
+    //     }
+    // }
 
     getSortedArray() {
         const arrayBars = this.componentRef.current.getElementsByClassName('array-bar');
@@ -531,7 +546,11 @@ class SortingVisualizer extends Component {
                         className="algo-bar"
                         data-test="algorithm-bar"
                     >
-                        <button className="algo-buttons" id="selectionSort" onClick={() => this.handleClickAlgoButton(algorithmArray[0])}>SelectionSort</button>
+                        <button 
+                            className="algo-buttons" 
+                            id="selectionSort" 
+                            onClick={() => this.handleClickAlgoButton(algorithmArray[0])}
+                        >SelectionSort</button>
                         <button className="algo-buttons" id="bubbleSort" onClick={() => this.handleClickAlgoButton(algorithmArray[1])}>BubbleSort</button>
                         <button className="algo-buttons" id="mergeSort" onClick={() => this.handleClickAlgoButton(algorithmArray[2])}>MergeSort</button>
                         <button className="algo-buttons" id="heapSort" onClick={() => this.handleClickAlgoButton(algorithmArray[3])}>HeapSort</button>
