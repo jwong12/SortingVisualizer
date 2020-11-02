@@ -28,11 +28,12 @@ const mapStateToProps = (state) => {
     sortedColor: state.sortedColor,
     defaultColor: state.defaultColor,
     backgroundColor: state.backgroundColor,
-    algoButtonBg: state.algoButtonBg,
-    algoButtonColor: state.algoButtonColor,
-    algoButtonSelectedBg: state.algoButtonSelectedBg,
-    algoButtonSelectedColor: state.algoButtonSelectedColor,
-    arraysSorted: state.arraysSorted
+    algoBtnBg: state.algoBtnBg,
+    algoBtnColor: state.algoBtnColor,
+    algoBtnSelectedBg: state.algoBtnSelectedBg,
+    algoBtnSelectedColor: state.algoBtnSelectedColor,
+    arraysSorted: state.arraysSorted,
+    finishSortingArray: state.finishSortingArray
   }
 };
 

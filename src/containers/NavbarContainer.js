@@ -31,7 +31,7 @@ const mapStateToProps = (state) => {
     titleColor: state.titleColor,
     startButtonBg: state.startButtonBg,
     buttonBgColor: state.buttonBgColor,
-    finishSorting: state.finishSorting,
+    finishSortingArray: state.finishSortingArray,
     isArraySorted: state.isArraySorted
   }
 }

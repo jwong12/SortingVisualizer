@@ -10,7 +10,7 @@ class Navbar extends React.Component {
     }
 
     handleMouseOverStartBtn = (e) => {
-        if (this.props.finishSorting && !this.props.isArraySorted) {
+        if (this.props.finishSortingArray && !this.props.isArraySorted) {
             e.target.style.backgroundColor = "#bd7e7e"
             e.target.style.cursor = "pointer";
 
@@ -20,13 +20,13 @@ class Navbar extends React.Component {
     }
 
     handleMouseLeaveStartBtn = (e) => {
-        if (this.props.finishSorting && !this.props.isArraySorted) {
+        if (this.props.finishSortingArray && !this.props.isArraySorted) {
             e.target.style.backgroundColor = "#59ab80";
         }
     }
 
     handleMouseOverBtns = (e) => {
-        if (this.props.finishSorting) {
+        if (this.props.finishSortingArray) {
             e.target.style.backgroundColor = "#bd7e7e";
             e.target.style.cursor = "pointer";
 
@@ -36,7 +36,7 @@ class Navbar extends React.Component {
     }
 
     handleMouseLeaveBtns = (e) => {
-        if (this.props.finishSorting) {
+        if (this.props.finishSortingArray) {
             e.target.style.backgroundColor = "#59ab80";
         }
     }
@@ -54,7 +54,7 @@ class Navbar extends React.Component {
                 <button 
                     style={{ backgroundColor: this.props.buttonBgColor }}
                     onClick={() => {
-                        if (this.props.finishSorting) {
+                        if (this.props.finishSortingArray) {
                             this.props.changeTheme()
                         }
                     }}
@@ -64,7 +64,7 @@ class Navbar extends React.Component {
                 <button 
                     style={{ backgroundColor: this.props.buttonBgColor }}
                     onClick={() => {
-                        if (this.props.finishSorting) {
+                        if (this.props.finishSortingArray) {
                             this.props.randomizeAlgo()
                         }
                     }}
@@ -74,7 +74,7 @@ class Navbar extends React.Component {
                 <button 
                     style={{ backgroundColor: this.props.buttonBgColor }}
                     onClick={() => {
-                        if (this.props.finishSorting) {
+                        if (this.props.finishSortingArray) {
                             this.props.shuffleArray()
                         }
                     }}
@@ -103,7 +103,7 @@ Navbar.propTypes = {
     titleColor: PropTypes.string,
     startButtonBg: PropTypes.string,
     buttonBgColor: PropTypes.string,
-    finishSorting: PropTypes.bool,
+    finishSortingArray: PropTypes.bool,
     isArraySorted: PropTypes.bool,
 };
 

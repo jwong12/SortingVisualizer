@@ -12,12 +12,12 @@ const initialState = {
   defaultColor: '#b0b0b0',
   backgroundColor: 'rgb(241, 241, 241)',
   appBackgroundColor: 'white',
-  algoButtonBg: '#ffffff',
-  algoButtonColor: '#494949',
-  algoButtonSelectedBg: 'rgb(73, 151, 249)',
-  algoButtonSelectedColor: 'rgb(247, 247, 247)',
+  algoBtnBg: '#ffffff',
+  algoBtnColor: '#494949',
+  algoBtnSelectedBg: 'rgb(73, 151, 249)',
+  algoBtnSelectedColor: 'rgb(247, 247, 247)',
   arraysSorted: 0,
-  finishSorting: true,
+  finishSortingArray: true,
   titleColor: 'rgb(101, 196, 226)',
   startButtonBg: '#59ab80',
   buttonBgColor: '#59ab80'
@@ -27,7 +27,7 @@ const sortingVisualizerReducer = (state = initialState, action) => {
     switch(action.type) {
       case 'NAV_BAR_FINISH_SORTING':
         return Object.assign({}, state, {
-          finishSorting: true,
+          finishSortingArray: true,
           arraysSorted: 0,
           startButtonBg: '#9E9E9E',
           buttonBgColor: '#59ab80'
@@ -52,7 +52,7 @@ const sortingVisualizerReducer = (state = initialState, action) => {
         return Object.assign({}, state, {
           startSort: true,
           isArraySorted: true,
-          finishSorting: false,
+          finishSortingArray: false,
           startButtonBg: '#bd7e7e',
           buttonBgColor: '#9E9E9E'
         })   
@@ -65,10 +65,10 @@ const sortingVisualizerReducer = (state = initialState, action) => {
           defaultColor: !state.isDarkTheme ? '#71868f' : '#b0b0b0',
           backgroundColor: !state.isDarkTheme ? 'rgb(45, 45, 45)' : 'rgb(241, 241, 241)',
           appBackgroundColor: !state.isDarkTheme ? '#3a3a3a' : 'white',
-          algoButtonBg: !state.isDarkTheme ? '#8a8a8a' : '#ffffff',
-          algoButtonColor: !state.isDarkTheme ? '#212121' : '#494949',
-          algoButtonSelectedBg: !state.isDarkTheme ? 'rgb(5, 105, 154)' : 'rgb(73, 151, 249)',
-          algoButtonSelectedColor: !state.isDarkTheme ? 'rgb(206, 206, 206)' : 'rgb(247, 247, 247)',
+          algoBtnBg: !state.isDarkTheme ? '#8a8a8a' : '#ffffff',
+          algoBtnColor: !state.isDarkTheme ? '#212121' : '#494949',
+          algoBtnSelectedBg: !state.isDarkTheme ? 'rgb(5, 105, 154)' : 'rgb(73, 151, 249)',
+          algoBtnSelectedColor: !state.isDarkTheme ? 'rgb(206, 206, 206)' : 'rgb(247, 247, 247)',
           titleColor: !state.isDarkTheme ? 'rgb(83, 147, 167)' : 'rgb(101, 196, 226)',
         })    
       default: 

@@ -23,6 +23,8 @@
     border: 1px solid #494949;
     transition: all 0.4s ease 0s;
     cursor: pointer;
+    position: relative;
+    outline: none;
 }
 
 .algo-buttons:hover {

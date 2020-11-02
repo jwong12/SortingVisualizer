@@ -14,7 +14,7 @@ class SortingVisualizer extends Component {
         this.state = {
             [this.componentRef.current]: {
                 array: [],
-                algorithm: String
+                algorithm: ''
             }
         };
     }
@@ -96,9 +96,35 @@ class SortingVisualizer extends Component {
             this.highlightAlgoButton(this.state[this.componentRef.current].algorithm);
         }
 
+        if (prevProps.finishSortingArray !== this.props.finishSortingArray && !this.props.finishSortingArray) {
+            const buttons = this.componentRef.current.getElementsByClassName('algo-buttons');
+
+            for(let i = 0; i < buttons.length; i++) {
+                if(this.state[this.componentRef.current].algorithm === buttons[i].id){
+                    buttons[i].style.boxShadow = '0px 1px 5px 2px rgba(0,0,0,0.4)';
+                    buttons[i].style.zIndex = 99;
+                } else {
+                    buttons[i].style.filter = 'blur(2px)';
+                    buttons[i].style.cursor = 'default';
+                }
+            }            
+        } else {
+            const buttons = this.componentRef.current.getElementsByClassName('algo-buttons');
+
+            for(let i = 0; i < buttons.length; i++) {
+                if(this.state[this.componentRef.current].algorithm === buttons[i].id){
+                    buttons[i].style.boxShadow = 'none';
+                    buttons[i].style.zIndex = 0;
+                } else {
+                    buttons[i].style.filter = 'none';
+                    buttons[i].style.cursor = 'pointer';
+                }
+            }
+        }
+
         if (prevProps.arraysSorted !== this.props.arraysSorted && this.props.arraysSorted === 4) {
             this.props.finishSorting();
-        }
+        }        
     }
 
     selectionSort = () => {
@@ -127,7 +153,7 @@ class SortingVisualizer extends Component {
                         setTimeout(() => {
                             const barStyle = arrayBars[this.props.array.length-1].style;
                             barStyle.backgroundColor = this.props.sortedColor;
-                            this.props.incrementArraySortedCount();
+                            setTimeout(() => this.props.incrementArraySortedCount(), 1000);
                         }, ANIMATION_SPEED_MS);  
                     }     
                 }, i * ANIMATION_SPEED_MS);
@@ -188,7 +214,7 @@ class SortingVisualizer extends Component {
                             setTimeout(() => {
                                 const barStyle = arrayBars[0].style;
                                 barStyle.backgroundColor = this.props.sortedColor;
-                                this.props.incrementArraySortedCount();
+                                setTimeout(() => this.props.incrementArraySortedCount(), 1500);
                             }, ANIMATION_SPEED_MS);   
                         }
                     }                
@@ -246,7 +272,7 @@ class SortingVisualizer extends Component {
             }
         }
 
-        setTimeout(() => this.props.incrementArraySortedCount(), 14500);
+        setTimeout(() => this.props.incrementArraySortedCount(), 15000);
     }
 
     heapSort = () => {
@@ -305,7 +331,7 @@ class SortingVisualizer extends Component {
                     if(i === animations.length - 1) {
                         setTimeout(() => {
                             arrayBars[0].style.backgroundColor = this.props.sortedColor;   
-                            this.props.incrementArraySortedCount();
+                            setTimeout(() => this.props.incrementArraySortedCount(), 0);
                         }, 10);
                     }   
                 }, i * ANIMATION_SPEED_MS * 4.75); 
@@ -363,7 +389,7 @@ class SortingVisualizer extends Component {
                             }, i * 8.5) 
                         }
 
-                        setTimeout(() => this.props.incrementArraySortedCount(), 1200);
+                        setTimeout(() => this.props.incrementArraySortedCount(), 1500);
                     }   
                 }, i * ANIMATION_SPEED_MS * 8.2); 
             }          
@@ -407,20 +433,19 @@ class SortingVisualizer extends Component {
             }
         }, 6700);
 
-        setTimeout(() => this.props.incrementArraySortedCount(), 14500);
+        setTimeout(() => this.props.incrementArraySortedCount(), 15000);
     }
 
     highlightAlgoButton(algorithm) {
-        const node = this.componentRef.current;
-        const buttons = node.getElementsByClassName('algo-buttons');
+        const buttons = this.componentRef.current.getElementsByClassName('algo-buttons');
 
         for(let i = 0; i < buttons.length; i++) {
             if(algorithm === buttons[i].id){
-                buttons[i].style.color = this.props.algoButtonSelectedColor;
-                buttons[i].style.backgroundColor = this.props.algoButtonSelectedBg;
+                buttons[i].style.color = this.props.algoBtnSelectedColor;
+                buttons[i].style.backgroundColor = this.props.algoBtnSelectedBg;
             } else {
-                buttons[i].style.color = this.props.algoButtonColor;
-                buttons[i].style.backgroundColor = this.props.algoButtonBg;
+                buttons[i].style.color = this.props.algoBtnColor;
+                buttons[i].style.backgroundColor = this.props.algoBtnBg;
             }
         }        
 
@@ -428,28 +453,29 @@ class SortingVisualizer extends Component {
     }
 
     handleClickAlgoButton = (algo) => {
-        const algorithm = this.highlightAlgoButton(algo);
+        if (this.props.finishSortingArray) {
+            const algorithm = this.highlightAlgoButton(algo);
 
-        if(this.props.isArraySorted) {
-            this.setState({            
-                [this.componentRef.current]: {
-                    array: this.getSortedArray(),
-                    algorithm
-                }
-            });            
-        } else {
-            this.setState({            
-                [this.componentRef.current]: {
-                    array: [...this.props.array],
-                    algorithm
-                }
-            });
+            if(this.props.isArraySorted) {
+                this.setState({            
+                    [this.componentRef.current]: {
+                        array: this.getSortedArray(),
+                        algorithm
+                    }
+                });            
+            } else {
+                this.setState({            
+                    [this.componentRef.current]: {
+                        array: [...this.props.array],
+                        algorithm
+                    }
+                });
+            }
         }
     }
 
     getSortedArray() {
-        const node = this.componentRef.current;
-        const arrayBars = node.getElementsByClassName('array-bar');
+        const arrayBars = this.componentRef.current.getElementsByClassName('array-bar');
         const completedArray = [];
 
         for(let i = 0; i < arrayBars.length; i++) {
@@ -546,11 +572,12 @@ SortingVisualizer.propTypes = {
     sortedColor: PropTypes.string,
     defaultColor: PropTypes.string,
     backgroundColor: PropTypes.string,
-    algoButtonBg: PropTypes.string,
-    algoButtonColor: PropTypes.string,
-    algoButtonSelectedBg: PropTypes.string,
-    algoButtonSelectedColor: PropTypes.string,
-    arraysSorted: PropTypes.number
+    algoBtnBg: PropTypes.string,
+    algoBtnColor: PropTypes.string,
+    algoBtnSelectedBg: PropTypes.string,
+    algoBtnSelectedColor: PropTypes.string,
+    arraysSorted: PropTypes.number,
+    finishSortingArray: PropTypes.bool
 };
 
 export default SortingVisualizer;
