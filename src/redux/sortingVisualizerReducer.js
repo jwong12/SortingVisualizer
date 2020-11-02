@@ -19,6 +19,8 @@ const initialState = {
   arraysSorted: 0,
   finishSorting: true,
   titleColor: 'rgb(101, 196, 226)',
+  startButtonBg: '#59ab80',
+  buttonBgColor: '#59ab80'
 };
 
 const sortingVisualizerReducer = (state = initialState, action) => {
@@ -26,7 +28,9 @@ const sortingVisualizerReducer = (state = initialState, action) => {
       case 'NAV_BAR_FINISH_SORTING':
         return Object.assign({}, state, {
           finishSorting: true,
-          arraysSorted: 0
+          arraysSorted: 0,
+          startButtonBg: '#9E9E9E',
+          buttonBgColor: '#59ab80'
         });
       case 'SORTING_VISUALIZER_ARRAY_SORTED':
         return Object.assign({}, state, {
@@ -37,6 +41,7 @@ const sortingVisualizerReducer = (state = initialState, action) => {
           unsortedArray: shuffleArray(),
           startSort: false,
           isArraySorted: false,
+          startButtonBg: '#59ab80'
         });
       case 'SORTING_VISUALIZER_RANDOMIZE_ALGO': 
         return Object.assign({}, state, {
@@ -47,7 +52,9 @@ const sortingVisualizerReducer = (state = initialState, action) => {
         return Object.assign({}, state, {
           startSort: true,
           isArraySorted: true,
-          finishSorting: false
+          finishSorting: false,
+          startButtonBg: '#bd7e7e',
+          buttonBgColor: '#9E9E9E'
         })   
       case 'SORTING_VISUALIZER_CHANGE_THEME':
         return Object.assign({}, state, {

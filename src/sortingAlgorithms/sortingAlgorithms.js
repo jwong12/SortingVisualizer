@@ -34,6 +34,7 @@ export function getBubbleSortAnimations(array) {
             animations.push([j,j+1]);
         }
     }
+    
     return animations;
 };
 

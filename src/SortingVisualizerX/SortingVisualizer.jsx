@@ -363,7 +363,7 @@ class SortingVisualizer extends Component {
                             }, i * 8.5) 
                         }
 
-                        setTimeout(() => this.props.incrementArraySortedCount(), 1500);
+                        setTimeout(() => this.props.incrementArraySortedCount(), 1200);
                     }   
                 }, i * ANIMATION_SPEED_MS * 8.2); 
             }          
@@ -534,6 +534,8 @@ function arraysAreEqual(arrayOne, arrayTwo) {
 }
 
 SortingVisualizer.propTypes = {
+    finishSorting: PropTypes.func,
+    incrementArraySortedCount: PropTypes.func,
     array: PropTypes.array,
     startSort: PropTypes.bool,
     randomAlgoClicks: PropTypes.number,
