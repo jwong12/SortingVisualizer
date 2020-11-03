@@ -30,6 +30,7 @@ const mapStateToProps = (state) => {
     backgroundColor: state.backgroundColor,
     algoBtnBg: state.algoBtnBg,
     algoBtnColor: state.algoBtnColor,
+    algoBtnBorder: state.algoBtnBorder,
     algoBtnSelectedBg: state.algoBtnSelectedBg,
     algoBtnSelectedColor: state.algoBtnSelectedColor,
     arraysSorted: state.arraysSorted,

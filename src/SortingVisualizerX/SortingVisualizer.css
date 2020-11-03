@@ -21,35 +21,26 @@
 .algo-buttons {
     padding: 8px;
     border: 1px solid #b5b5b5;
-    transition: all 0.4s ease 0s;
     cursor: pointer;
     position: relative;
     outline: none;
 }
 
-/* .algo-buttons:hover {
-    color: rgb(247, 247, 247);
-    background-color: rgb(73, 151, 249);
-    border: 1px solid #818181;
-    transition: all 0.4s ease 0s;
-} */
-
 @keyframes box-shadow-fade-in {
     from {  
         box-shadow: none; 
         z-index: 0;
-        border: 1px solid #494949;
     }
     to {  
-        box-shadow: 0 1px 5px 1px rgba(0,0,0,0.6); 
+        box-shadow: 0 1px 5px 2px rgba(0,0,0,0.4); 
         z-index: 99;
-        border: 1px solid #4997F9;
+        border: 1px solid transparent;
     }
 }
 
 @keyframes box-shadow-fade-out {
     from {  
-        box-shadow: 0 1px 5px 1px rgba(0,0,0,0.6); 
+        box-shadow: 0 1px 5px 2px rgba(0,0,0,0.4); 
         z-index: 99;
     }
     to {  

@@ -10,7 +10,14 @@ class SortingVisualizer extends Component {
     constructor(props) {
         super(props);
         this.componentRef = React.createRef();
+        this.selectionBtnRef = React.createRef();
+        this.bubbleBtnRef = React.createRef();
+        this.mergeBtnRef = React.createRef();
+        this.heapBtnRef = React.createRef();
+        this.quickBtnRef = React.createRef();
+        this.countingBtnRef = React.createRef();
         this.componentRef.current = randomIntFromInterval(0, 1000000);
+
         this.state = {
             [this.componentRef.current]: {
                 array: [],
@@ -113,7 +120,7 @@ class SortingVisualizer extends Component {
 
         for(let i = 0; i < buttons.length; i++) {
             if(this.state[this.componentRef.current].algorithm === buttons[i].id){
-                setTimeout(() => buttons[i].style.animation = 'box-shadow-fade-in 300ms forwards', 300);
+                setTimeout(() => buttons[i].style.animation = 'box-shadow-fade-in 450ms forwards', 150);
 
             } else {
                 setTimeout(() => buttons[i].style.animation = 'blur-fade-in 300ms forwards', 0);
@@ -127,10 +134,10 @@ class SortingVisualizer extends Component {
 
         for(let i = 0; i < buttons.length; i++) {
             if(this.state[this.componentRef.current].algorithm === buttons[i].id){
-                setTimeout(() => buttons[i].style.animation = 'box-shadow-fade-out 300ms forwards', 500);
+                setTimeout(() => buttons[i].style.animation = 'box-shadow-fade-out 450ms forwards', 0);
 
             } else {
-                setTimeout(() => buttons[i].style.animation = 'blur-fade-out 300ms forwards', 800);
+                setTimeout(() => buttons[i].style.animation = 'blur-fade-out 300ms forwards', 300);
                 buttons[i].style.cursor = 'pointer'
             }
         }
@@ -449,9 +456,12 @@ class SortingVisualizer extends Component {
         const buttons = this.componentRef.current.getElementsByClassName('algo-buttons');
 
         for(let i = 0; i < buttons.length; i++) {
+            buttons[i].style.border = this.props.algoBtnBorder;
+
             if(algorithm === buttons[i].id){
                 buttons[i].style.color = this.props.algoBtnSelectedColor;
                 buttons[i].style.backgroundColor = this.props.algoBtnSelectedBg;
+
             } else {
                 buttons[i].style.color = this.props.algoBtnColor;
                 buttons[i].style.backgroundColor = this.props.algoBtnBg;
@@ -483,11 +493,19 @@ class SortingVisualizer extends Component {
         }
     }
 
-    // handleMouseOverAlgoButton = (algo) => {
-    //     if (this.props.finishSortingArray) {
-            
-    //     }
-    // }
+    handleMouseOverAlgoButton = (buttonRef) => {
+        if (this.props.finishSortingArray && this.state[this.componentRef.current].algorithm !== buttonRef.current.id) {
+            buttonRef.current.style.color = this.props.algoBtnSelectedColor;
+            buttonRef.current.style.backgroundColor = this.props.algoBtnSelectedBg;
+        }
+    }
+
+    handleMouseLeaveAlgoButton = (buttonRef) => {
+        if (this.props.finishSortingArray && this.state[this.componentRef.current].algorithm !== buttonRef.current.id) {
+            buttonRef.current.style.color = this.props.algoBtnColor;
+            buttonRef.current.style.backgroundColor = this.props.algoBtnBg;
+        } 
+    }
 
     getSortedArray() {
         const arrayBars = this.componentRef.current.getElementsByClassName('array-bar');
@@ -507,7 +525,7 @@ class SortingVisualizer extends Component {
         console.log(quickSorted)
         console.log(arraysAreEqual(jsSortedArray, quickSorted));
     }
-
+    
     render() {
         return (
             <div 
@@ -547,15 +565,53 @@ class SortingVisualizer extends Component {
                         data-test="algorithm-bar"
                     >
                         <button 
+                            ref={this.selectionBtnRef}
                             className="algo-buttons" 
                             id="selectionSort" 
                             onClick={() => this.handleClickAlgoButton(algorithmArray[0])}
+                            onMouseOver={() => this.handleMouseOverAlgoButton(this.selectionBtnRef)}
+                            onMouseLeave={() => this.handleMouseLeaveAlgoButton(this.selectionBtnRef)}
                         >SelectionSort</button>
-                        <button className="algo-buttons" id="bubbleSort" onClick={() => this.handleClickAlgoButton(algorithmArray[1])}>BubbleSort</button>
-                        <button className="algo-buttons" id="mergeSort" onClick={() => this.handleClickAlgoButton(algorithmArray[2])}>MergeSort</button>
-                        <button className="algo-buttons" id="heapSort" onClick={() => this.handleClickAlgoButton(algorithmArray[3])}>HeapSort</button>
-                        <button className="algo-buttons" id="quickSort" onClick={() => this.handleClickAlgoButton(algorithmArray[4])}>QuickSort</button>
-                        <button className="algo-buttons" id="countingSort" onClick={() => this.handleClickAlgoButton(algorithmArray[5])}>CountingSort</button>
+                        <button 
+                            ref={this.bubbleBtnRef}
+                            className="algo-buttons" 
+                            id="bubbleSort" 
+                            onClick={() => this.handleClickAlgoButton(algorithmArray[1])}
+                            onMouseOver={() => this.handleMouseOverAlgoButton(this.bubbleBtnRef)}
+                            onMouseLeave={() => this.handleMouseLeaveAlgoButton(this.bubbleBtnRef)}
+                        >BubbleSort</button>
+                        <button 
+                            ref={this.mergeBtnRef}
+                            className="algo-buttons" 
+                            id="mergeSort" 
+                            onClick={() => this.handleClickAlgoButton(algorithmArray[2])}
+                            onMouseOver={() => this.handleMouseOverAlgoButton(this.mergeBtnRef)}
+                            onMouseLeave={() => this.handleMouseLeaveAlgoButton(this.mergeBtnRef)}
+                        >MergeSort</button>
+                        <button 
+                            ref={this.heapBtnRef}
+                            className="algo-buttons" 
+                            id="heapSort" 
+                            onClick={() => this.handleClickAlgoButton(algorithmArray[3])}
+                            onMouseOver={() => this.handleMouseOverAlgoButton(this.heapBtnRef)}
+                            onMouseLeave={() => this.handleMouseLeaveAlgoButton(this.heapBtnRef)}
+                        >HeapSort</button>
+                        <button 
+                            ref={this.quickBtnRef}
+                            className="algo-buttons" 
+                            id="quickSort" 
+                            onClick={() => this.handleClickAlgoButton(algorithmArray[4])}
+                            onMouseOver={() => this.handleMouseOverAlgoButton(this.quickBtnRef)}
+                            onMouseLeave={() => this.handleMouseLeaveAlgoButton(this.quickBtnRef)}
+                        >QuickSort</button>
+                        <button 
+                            ref={this.countingBtnRef}
+                            className="algo-buttons" 
+                            id="countingSort" 
+                            onClick={() => this.handleClickAlgoButton(algorithmArray[5])}
+                            onMouseOver={() => this.handleMouseOverAlgoButton(this.countingBtnRef)}
+                            onMouseLeave={() => this.handleMouseLeaveAlgoButton(this.countingBtnRef)}
+                        >CountingSort</button>
                     </div>
                 </div>
             </div>
@@ -593,6 +649,7 @@ SortingVisualizer.propTypes = {
     backgroundColor: PropTypes.string,
     algoBtnBg: PropTypes.string,
     algoBtnColor: PropTypes.string,
+    algoBtnBorder: PropTypes.string,
     algoBtnSelectedBg: PropTypes.string,
     algoBtnSelectedColor: PropTypes.string,
     arraysSorted: PropTypes.number,
